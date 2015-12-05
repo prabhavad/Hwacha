@@ -1,7 +1,7 @@
 # Design
 
-		                Hawcha UI
-		                   /\
+		     Hawcha UI
+		       /\
                       /  \      
                      /    \
                     /      \
@@ -16,7 +16,8 @@
 
 
 
-AppControl:
+#AppControl:
+
 	getSmName()
 		Input: None
 		Output: Social Media name
@@ -48,7 +49,8 @@ AppControl:
 		Output: List of social media 
 		Specification: Read the list of social media to broadcast from user.
 
-Authentification:
+#Authentification:
+
 	getUserName()
 		Input: None
 		Output: User name
@@ -59,31 +61,37 @@ Authentification:
 		Output: Password
 		Specification: Read the password from the user
 
-SMC:
+#SMC:
+
 	addSm()
 		Input: getSmName(),getSmUserName(), getSmUserPasswd()
 		Output: Boolean
 		Specification: Add the given social media.
+		
 	rmSm()
 		Input: getSmName()
 		Output: Boolean
 		Specification: Remove the given social media.
+		
 	displaySm()	
 		Input: None
 		Output: Social media list
 		Specification:	Display the list of social media
 
-Broadcast:
+#Broadcast:
+
 	broadcastMessage()
 		Input: getMessage(), getSmList() 
 		Output: Boolean
 		Specification: Broadcast the message to various social media
 
-User:
+#User:
+
 	addUser()
 		Input: getUserName(), getUserPasswd() 
 		Output: Boolean
 		Specification: Add application user.
+		
 	rmUser()
 		Input: getUserName(), getUserPasswd()
 		Output: Boolean
