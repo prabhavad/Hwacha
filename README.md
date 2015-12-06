@@ -1,4 +1,3 @@
-Hwacha
---------------------------
-A web based message broadcasting system
-					
+# Hwacha
+
+Broadcast your news
