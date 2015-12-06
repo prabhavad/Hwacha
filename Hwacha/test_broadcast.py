@@ -3,24 +3,16 @@ import pytest
 
 
 
-
-
-
-
 def test_broadcst():
-
-
-
-
-    
     key={'consumer_key':'igjX6vqB8HtMzPByguX9KUtqv',
      'consumer_secret': 'R8pyvLiKSDDTjyf84DnKVgM4IQLYTXq9fDdCbsq3vCEzXkC7qz',
      'access_token': '4472517314-QveTAuRwPQ0JKnBTkVobZZTG3KusZm8fFBUSXKw',
      'access_token_secret':'XItUgPH1VCP027HufEewBqdO45dCEz4Ga4IwqOmgo2brN',
       }
     soc_media= 'twitter'
-    push = broadcast.pushmessage('Hello Hwach',soc_media,key)
-    assert push == None
+    error_code = None
+    push = broadcast.broadcastmessage('Hello Hwacha123d',soc_media,key) #Dont repeate message
+    assert push == error_code
     
 
 def test_broadcst2():
@@ -33,7 +25,7 @@ def test_broadcst2():
     soc_media= 'twitter'
     error_code = 89
     
-    push = broadcast.pushmessage('Hello Hwach',soc_media,wrong_key)
+    push = broadcast.broadcastmessage('Hello Hwach',soc_media,wrong_key)
     print push
     assert push == error_code
     

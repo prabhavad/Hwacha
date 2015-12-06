@@ -1,17 +1,14 @@
 import tweepy
-# import key_file
-# import wrong_key_file # wrong key file used for py.test purpose
 
-class Broadcast(object):
+class Broadcast(object): #Abstract class 
     
-
     def authentication():
         raise NotImplementedError()
     def push():
         raise NotImplementedError()
     
 
-class TwitterBroadcast(Broadcast):
+class TwitterBroadcast(Broadcast): #concrete class for twitter
     
         def __init__(self,CONSUMER_KEY,CONSUMER_SECRET,
                           ACCESS_TOKEN,ACCESS_TOKEN_SECRET):
@@ -37,15 +34,14 @@ class TwitterBroadcast(Broadcast):
 
             
 
-def pushmessage(message,sm,key):
-    soc_media={'twitter':init_twitter(message,key),
-               'mail':init_mail()#init_mail()
-               }
-    code = soc_media[sm]
-    return code
+
+class Mailbroadcaster(Broadcast): #dummy mail concrete class
+    pass
 
 
-def init_twitter(message,key):
+
+
+def init_twitter(message,key): # twitter key initialisation and broadcasting
     
     consumer_key = key['consumer_key']
     consumer_secret = key['consumer_secret']
@@ -58,21 +54,17 @@ def init_twitter(message,key):
     return code
 
 
-def init_mail():
+def init_mail(): #dummy mail initialisation
     pass
 
 
 
-wrong_key={'consumer_key':'qB8HtMzPByguX9KUtqv',
-     'consumer_secret': 'R8pyvLiKSDDTjyf84DnKVgM4IQLYTXq9fDdCbsq3vCEzXkC7qz',
-     'access_token': '44725173veTAu0JKnBTkVobZZTG3KusZm8fFBUSXKw',
-     'access_token_secret':'tUgPCP027HufEewBqdO45dCEz4Ga4IwqOmgo2brN'
-     }
+def broadcastmessage(message,sm,key):
+    soc_media={'twitter':init_twitter(message,key),
+               'mail':init_mail()
+               }
+    code = soc_media[sm]
+    return code
 
 
-key={'consumer_key':'igjX6vqB8HtMzPByguX9KUtqv',
-     'consumer_secret': 'R8pyvLiKSDDTjyf84DnKVgM4IQLYTXq9fDdCbsq3vCEzXkC7qz',
-     'access_token': '4472517314-QveTAuRwPQ0JKnBTkVobZZTG3KusZm8fFBUSXKw',
-     'access_token_secret':'XItUgPH1VCP027HufEewBqdO45dCEz4Ga4IwqOmgo2brN'
-      }
-print pushmessage('ultimaddd','twitter',wrong_key)
+
