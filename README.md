@@ -1,3 +1,3 @@
 # Hwacha
 
-Broadcast your news.
+Broadcast your news
