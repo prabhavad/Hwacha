@@ -46,21 +46,19 @@ class mailBroadcast(Broadcast): #dummy mail concrete class
 			self.FROM = FROM
 			self.TO = TO
 
-    	def push(self):
+    	def push(self) :
 			msg = MIMEText(self.MESSAGE)
 			msg['Subject'] = self.SUBJECT
 			msg['From'] = self.FROM
 			msg['To'] = self.TO 
-
+	
 			#Sending the message via once own SMTP server
 			sendObject = smtplib.SMTP('localhost')
 			sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
 			sendObject.quit()
+			return 1
 
-			# catching exceptions to be done
-
-
-
+			
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
     
@@ -89,10 +87,12 @@ def init_mail(message,key): #dummy mail initialisation
 
 def broadcastmessage(message,sm,key):
     soc_media={'twitter':init_twitter(message,key),
-               'mail':init_mail()
+               'mail':init_mail(message,key)
                }
     code = soc_media[sm]
     return code
+
+
 
 
 
