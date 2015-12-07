@@ -40,11 +40,26 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
 class mailBroadcast(Broadcast): #dummy mail concrete class
 
-	def __init__(self,MESSAGE,SUBJECT,FROM,TO) :
+	def __init__(self,MESSAGE,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
 		self.MESSAGE = MESSAGE
 		self.SUBJECT = SUBJECT
 		self.FROM = FROM
 		self.TO = TO
+                self.CONSUMER_KEY = CONSUMER_KEY
+                self.CONSUMER_SECRET = CONSUMER_SECRET
+
+        def authentication(self):
+            auth = SMTP.login(self.CONSUMER_KEY, self.CONSUMER_SECRET)
+            return auth
+
+        def verification(self,CONSUMER_KEY):
+            server = smtplib.SMTP('mail')
+            server.set_debuglevel(True)
+            try:
+                username_result = server.verify('username')
+            finally:
+                server.quit()
+            print 'username: {}'.format('username_result')
 
     	def push(self):
 		msg = MIMEText(self.MESSAGE)
