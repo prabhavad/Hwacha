@@ -40,24 +40,24 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
 class mailBroadcast(Broadcast): #dummy mail concrete class
 
-		def __init__(self,MESSAGE,SUBJECT,FROM,TO) :
-			self.MESSAGE = MESSAGE
-			self.SUBJECT = SUBJECT
-			self.FROM = FROM
-			self.TO = TO
+	def __init__(self,MESSAGE,SUBJECT,FROM,TO) :
+		self.MESSAGE = MESSAGE
+		self.SUBJECT = SUBJECT
+		self.FROM = FROM
+		self.TO = TO
 
     	def push(self):
-			msg = MIMEText(self.MESSAGE)
-			msg['Subject'] = self.SUBJECT
-			msg['From'] = self.FROM
-			msg['To'] = self.TO 
+		msg = MIMEText(self.MESSAGE)
+		msg['Subject'] = self.SUBJECT
+		msg['From'] = self.FROM
+		msg['To'] = self.TO 
 
-			#Sending the message via once own SMTP server
-			sendObject = smtplib.SMTP('localhost')
-			sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
-			sendObject.quit()
+		#Sending the message via once own SMTP server
+		sendObject = smtplib.SMTP('localhost')
+		sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
+		sendObject.quit()
 
-			# catching exceptions to be done
+		# catching exceptions to be done
 
 
 
