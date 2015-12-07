@@ -38,7 +38,7 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
             
 
 
-class mailBroadcast(Broadcast): #dummy mail concrete class
+class mailBroadcast(Broadcast): # mail concrete class
 
 	def __init__(self,MESSAGE,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
 		self.MESSAGE = MESSAGE
@@ -86,11 +86,11 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
 
     twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
     key=twitter.authentication()
-    code=twitter.push(key,message)
-    return code
+    status=twitter.push(key,message)
+    return status
 
 
-def init_mail(message,key): #dummy mail initialisation
+def init_mail(message,key): # mail initialisation
     
 	fromAddress = key['from']
 	toAddress = key['to']
@@ -104,10 +104,10 @@ def init_mail(message,key): #dummy mail initialisation
 
 def broadcastmessage(message,sm,key):
     soc_media={'twitter':init_twitter(message,key),
-               'mail':init_mail()
+               'mail':init_mail(message,key)
                }
-    code = soc_media[sm]
-    return code
+    status = soc_media[sm]
+    return status
 
 
 
