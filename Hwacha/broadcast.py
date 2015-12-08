@@ -38,25 +38,41 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
             
 
 
-class mailBroadcast(Broadcast): #dummy mail concrete class
+class mailBroadcast(Broadcast): # mail concrete class
 
-		def __init__(self,MESSAGE,SUBJECT,FROM,TO) :
-			self.MESSAGE = MESSAGE
-			self.SUBJECT = SUBJECT
-			self.FROM = FROM
-			self.TO = TO
+    def __init__(self,MESSAGE,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
+        self.MESSAGE = MESSAGE
+        self.SUBJECT = SUBJECT
+        self.FROM = FROM
+        self.TO = TO
+        self.CONSUMER_KEY = CONSUMER_KEY
+        self.CONSUMER_SECRET = CONSUMER_SECRET
 
-    	def push(self) :
-			msg = MIMEText(self.MESSAGE)
-			msg['Subject'] = self.SUBJECT
-			msg['From'] = self.FROM
-			msg['To'] = self.TO 
+    def authentication(self):
+        auth = SMTP.login(self.CONSUMER_KEY, self.CONSUMER_SECRET)
+        return auth
+
+    def verification(self,CONSUMER_KEY):
+        server = smtplib.SMTP('mail')
+        server.set_debuglevel(True)
+        try:
+            username_result = server.verify('username')
+        finally:
+            server.quit()
+        print 'username: {}'.format('username_result')
+
+
+    def push(self) :
+        msg = MIMEText(self.MESSAGE)
+        msg['Subject'] = self.SUBJECT
+        msg['From'] = self.FROM
+        msg['To'] = self.TO 
 	
-			#Sending the message via once own SMTP server
-			sendObject = smtplib.SMTP('localhost')
-			sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
-			sendObject.quit()
-			return 1
+        #Sending the message via once own SMTP server
+        sendObject = smtplib.SMTP('localhost')
+        sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
+        sendObject.quit()
+        return "success"
 
 			
 
@@ -69,11 +85,11 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
 
     twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
     key=twitter.authentication()
-    code=twitter.push(key,message)
-    return code
+    status=twitter.push(key,message)
+    return status
 
 
-def init_mail(message,key): #dummy mail initialisation
+def init_mail(message,key): # mail initialisation
     
 	fromAddress = key['from']
 	toAddress = key['to']
@@ -89,8 +105,8 @@ def broadcastmessage(message,sm,key):
     soc_media={'twitter':init_twitter(message,key),
                'mail':init_mail(message,key)
                }
-    code = soc_media[sm]
-    return code
+    status = soc_media[sm]
+    return status
 
 
 
