@@ -83,7 +83,7 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
     consumer_key = key['consumer_key']
     consumer_secret = key['consumer_secret']
     access_token = key['access_token']
-    access_token_secret = key['acces s_token_secret']
+    access_token_secret = key['access_token_secret']
 
     twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
     key=twitter.authentication()
