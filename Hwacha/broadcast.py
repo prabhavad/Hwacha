@@ -106,13 +106,14 @@ def init_mail(message,key): # mail initialisation
 
 
 def broadcastmessage(message,sm,key):
-    soc_media={'twitter':init_twitter(message,key),
-               'mail':init_mail(message,key)
-               }
-    status = soc_media[sm]
+
+    if sm == 'mail':
+        status = init_mail(message,key)
+    elif sm == 'twitter':
+        status = init_twitter(message,key)
+
+
     return status
-
-
-
+    
 
 
