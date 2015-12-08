@@ -40,8 +40,7 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
 class mailBroadcast(Broadcast): # mail concrete class
 
-    def __init__(self,MESSAGE,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
-        self.MESSAGE = MESSAGE
+    def __init__(self,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
         self.SUBJECT = SUBJECT
         self.FROM = FROM
         self.TO = TO
@@ -62,8 +61,8 @@ class mailBroadcast(Broadcast): # mail concrete class
         print 'username: {}'.format('username_result')
 
 
-    def push(self) :
-        msg = MIMEText(self.MESSAGE)
+    def push(self,message) :
+        msg = MIMEText(message)
         msg['Subject'] = self.SUBJECT
         msg['From'] = self.FROM
         msg['To'] = self.TO 
@@ -74,7 +73,7 @@ class mailBroadcast(Broadcast): # mail concrete class
             sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
             sendObject.quit()
             return "success"
-        except SMTPException:
+        except smtplib.SMTPException:
             return "Error: unable to send email"
 
 			
@@ -97,9 +96,11 @@ def init_mail(message,key): # mail initialisation
 	fromAddress = key['from']
 	toAddress = key['to']
 	subject = key['subject']
+	consumerKey = key['consumer_key']
+	consumerSecret = key['consumer_secret']
 
-	mail = mailBroadcast(message,subject,fromAddress,toAddress)
-	sendMailStatus = mail.push()
+	mail = mailBroadcast(subject,fromAddress,toAddress,consumerKey,consumerSecret)
+	sendMailStatus = mail.push(message)
 	return sendMailStatus
 
 
