@@ -69,10 +69,13 @@ class mailBroadcast(Broadcast): # mail concrete class
         msg['To'] = self.TO 
 	
         #Sending the message via once own SMTP server
-        sendObject = smtplib.SMTP('localhost')
-        sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
-        sendObject.quit()
-        return "success"
+        try:
+            sendObject = smtplib.SMTP('localhost')
+            sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
+            sendObject.quit()
+            return "success"
+        except SMTPException:
+            return "Error: unable to send email"
 
 			
 
