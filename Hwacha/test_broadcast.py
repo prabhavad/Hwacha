@@ -28,6 +28,16 @@ def test_broadcst2():
     push = broadcast.broadcastmessage('Hello Hwach',soc_media,wrong_key)
     print push
     assert push == error_code
+
+def test_mailBroadcast():
+
+	key = {'subject':'Test Subject', 'to':'abc@xyz.in', 'from':'simsarulhaqv@mydomain.in'}
+	soc_media = 'mail'
+	code = "success"
+
+	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
+	assert push_return == code 
+	
     
 
  
