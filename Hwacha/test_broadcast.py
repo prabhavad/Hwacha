@@ -32,9 +32,9 @@ def test_broadcst2():
 
 def test_mailBroadcast():
 
-	key = {'subject':'Test Subject', 'to':'abc@xyz.in', 'from':'simsarulhaqv@mydomain.in'}
+	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'CorrectPass'}
 	soc_media = 'mail'
-	code = "success"
+	code = "Error: unable to send email"
 
 	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
 	assert push_return == code 

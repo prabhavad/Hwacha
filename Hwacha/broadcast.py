@@ -1,8 +1,6 @@
 import tweepy
 import smtplib
 
-from email.mime.text import MIMEText
-
 class Broadcast(object): #Abstract class 
     
     def authentication():
@@ -40,9 +38,8 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
 class mailBroadcast(Broadcast): # mail concrete class
 
-    def __init__(self,SUBJECT,FROM,TO,CONSUMER_KEY,CONSUMER_SECRET) :
+    def __init__(self,SUBJECT,TO,CONSUMER_KEY,CONSUMER_SECRET) :
         self.SUBJECT = SUBJECT
-        self.FROM = FROM
         self.TO = TO
         self.CONSUMER_KEY = CONSUMER_KEY
         self.CONSUMER_SECRET = CONSUMER_SECRET
@@ -62,20 +59,35 @@ class mailBroadcast(Broadcast): # mail concrete class
 
 
     def push(self,message) :
-        msg = MIMEText(message)
-        msg['Subject'] = self.SUBJECT
-        msg['From'] = self.FROM
-        msg['To'] = self.TO 
+
+        #Setting Gmail Credentials
+        gmailSender = self.CONSUMER_KEY
+        gmailPass = self.CONSUMER_SECRET
+
+        #Create connection to gmail server
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(gmailSender, gamilPass)
+
+        BODY = '\r\n'.join([
+               'To: %s' % self.TO,
+               'From: %s' % gmailSender,
+               'Subject: %s' % self.SUBJECT,
+               '%s' % message
+               ])
 	
-        #Sending the message via once own SMTP server
+        #Sending the message
         try:
-            sendObject = smtplib.SMTP('localhost')
-            sendObject.sendmail(self.FROM,[self.TO], msg.as_string())
-            sendObject.quit()
+            server.sendmail(gmailSender,[TO],BODY)
+            server.quit()
             return "success"
-        except smtplib.SMTPException:
+        except:
+            server.quit()
             return "Error: unable to send email"
 
+        
 			
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
@@ -93,13 +105,13 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
 
 def init_mail(message,key): # mail initialisation
     
-	fromAddress = key['from']
 	toAddress = key['to']
 	subject = key['subject']
+        # Consumer key is the mail id of the sender and Consumer secret is the passphrase for it.
 	consumerKey = key['consumer_key']
 	consumerSecret = key['consumer_secret']
 
-	mail = mailBroadcast(subject,fromAddress,toAddress,consumerKey,consumerSecret)
+	mail = mailBroadcast(subject,toAddress,consumerKey,consumerSecret)
 	sendMailStatus = mail.push(message)
 	return sendMailStatus
 
