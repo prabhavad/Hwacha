@@ -1,7 +1,7 @@
 import broadcast
 import pytest
 import random
-
+from mock import Mock
 
 def test_broadcst():
     key={'consumer_key':'igjX6vqB8HtMzPByguX9KUtqv',
@@ -40,5 +40,9 @@ def test_mailBroadcast():
 	assert push_return == code 
 	
     
-
+def test_authentication():
+    mock = Mock()
+    mock.authentication()
+    mock.return_value = "SMTPAuthenticationError"
+    mock.authentication.assert_called_with()
  
