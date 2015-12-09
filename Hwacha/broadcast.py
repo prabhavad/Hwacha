@@ -95,7 +95,7 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
     consumer_key = key['consumer_key']
     consumer_secret = key['consumer_secret']
     access_token = key['access_token']
-    access_token_secret = key['acces s_token_secret']
+    access_token_secret = key['access_token_secret']
 
     twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
     key=twitter.authentication()
@@ -118,13 +118,14 @@ def init_mail(message,key): # mail initialisation
 
 
 def broadcastmessage(message,sm,key):
-    soc_media={'twitter':init_twitter(message,key),
-               'mail':init_mail(message,key)
-               }
-    status = soc_media[sm]
+
+    if sm == 'mail':
+        status = init_mail(message,key)
+    elif sm == 'twitter':
+        status = init_twitter(message,key)
+
+
     return status
-
-
-
+    
 
 

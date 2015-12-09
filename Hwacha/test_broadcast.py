@@ -1,6 +1,6 @@
 import broadcast
 import pytest
-
+import random
 
 
 def test_broadcst():
@@ -11,7 +11,8 @@ def test_broadcst():
       }
     soc_media= 'twitter'
     error_code = None
-    push = broadcast.broadcastmessage('Hello Hwacha123d',soc_media,key) #Dont repeate message
+    message='Hello Hwacha'+str(random.random()) # random message
+    push = broadcast.broadcastmessage(message,soc_media,key) 
     assert push == error_code
     
 
