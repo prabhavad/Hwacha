@@ -45,6 +45,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         self.CONSUMER_SECRET = CONSUMER_SECRET
 
     def authentication(self):
+        
         auth = SMTP.login(self.CONSUMER_KEY, self.CONSUMER_SECRET)
         return auth
 
@@ -52,7 +53,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         server = smtplib.SMTP('mail')
         server.set_debuglevel(True)
         try:
-            username_result = server.verify('username')
+            username_result = SMTP.verify('address')
         finally:
             server.quit()
         print 'username: {}'.format('username_result')
