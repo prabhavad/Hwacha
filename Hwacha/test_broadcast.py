@@ -32,7 +32,7 @@ def test_broadcst2():
 
 def test_mailBroadcast():
 
-	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'CorrectPass'}
+	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'givecorrectPasshere'}
 	soc_media = 'mail'
 	code = "Error: unable to send email"
 
