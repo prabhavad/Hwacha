@@ -45,4 +45,10 @@ def test_authentication():
     mock.authentication()
     mock.return_value = "SMTPAuthenticationError"
     mock.authentication.assert_called_with()
- 
+
+def test_verification():
+    mock = Mock()
+    mock.verification()
+    mock.attribute = True
+    mock.verification.assert_called_with()
+    
