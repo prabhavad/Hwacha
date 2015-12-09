@@ -69,7 +69,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login(gmailSender, gamilPass)
+        server.login(gmailSender, gmailPass)
 
         BODY = '\r\n'.join([
                'To: %s' % self.TO,
