@@ -32,7 +32,7 @@ def test_broadcst2():
 
 def test_mailBroadcast():
 
-	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'givecorrectPasshere'}
+	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'correctPassHere'}
 	soc_media = 'mail'
 	code = "Error: unable to send email"
 
@@ -52,3 +52,4 @@ def test_verification():
     mock.attribute = True
     mock.verification.assert_called_with()
     
+
