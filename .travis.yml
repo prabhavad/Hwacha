@@ -3,6 +3,8 @@ python:
   - "2.6"
   - "2.7"
 # command to install dependencies
-python setup.py develop
+install:
+	python setup.py develop
 # command to run tests
-py.test test_broadcast.py 
+script:
+	py.test test_broadcast.py 
