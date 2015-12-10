@@ -8,6 +8,6 @@ setup( name ='Hwacha',
        author_email='Hwacha_11@gmail.com',
        license='BSD',
        packages=['Hwacha'],
-       install_requires=['tweepy',],
+       install_requires=['tweepy','pytest','mock'],
        zip_safe=False
        )
