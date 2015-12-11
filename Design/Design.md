@@ -44,6 +44,11 @@
 		Output: List of social media 
 		Specification: Read the list of social media to broadcast from user.
 
+	isInSmList()
+		Input: Social media name.
+		Output: Boolean
+		Specification: check if input social media is in social media list 
+
 ###Authentification:
 
 	getUserName()
