@@ -45,22 +45,6 @@ class mailBroadcast(Broadcast): # mail concrete class
         self.CONSUMER_SECRET = CONSUMER_SECRET
 
     def authentication(self):# authentication for the mail
-        
-        auth = SMTP.login(self.CONSUMER_KEY, self.CONSUMER_SECRET)
-        return auth
-
-    def verification(self,CONSUMER_KEY):#verifying the email addresss
-        server = smtplib.SMTP('mail')
-        server.set_debuglevel(True)
-        try:
-            username_result = SMTP.verify('address')
-        finally:
-            server.quit()
-        print 'username: {}'.format('username_result')
-
-
-    def push(self,message) :
-
         #Setting Gmail Credentials
         gmailSender = self.CONSUMER_KEY
         gmailPass = self.CONSUMER_SECRET
@@ -70,7 +54,21 @@ class mailBroadcast(Broadcast): # mail concrete class
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login(gmailSender, gmailPass)
+        auth = server.login(gmailSender, gmailPass)
+        return auth
+
+    def push(self,message) :
+
+        gmailSender = self.CONSUMER_KEY
+        gmailPass = self.CONSUMER_SECRET
+
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        auth = server.login(gmailSender, gmailPass)
+
+        TO = self.TO
 
         BODY = '\r\n'.join([
                'To: %s' % self.TO,
@@ -81,12 +79,12 @@ class mailBroadcast(Broadcast): # mail concrete class
 	
         #Sending the message
         try:
-            server.sendmail(gmailSender,[TO],BODY)
-            server.quit()
-            return "success"
-        except:
-            server.quit()
-            return "Error: unable to send email"
+                server.sendmail(gmailSender,[TO],BODY)
+                server.quit()
+                return "success"
+	except Exception as exptn:
+                server.quit()
+                return "Error: unable to send email"
 
         
 			
@@ -111,19 +109,23 @@ def init_mail(message,key): # mail initialisation
         # Consumer key is the mail id of the sender and Consumer secret is the passphrase for it.
 	consumerKey = key['consumer_key']
 	consumerSecret = key['consumer_secret']
-        # verification and authentication for the mailBroadcaster
         
-        verifymailaddress =mail Broadcast.verification('consumerKey')
-        login = mailBroadcast.authentication()
         
 	mail = mailBroadcast(subject,toAddress,consumerKey,consumerSecret)
-	sendMailStatus = mail.push(message)
-	return sendMailStatus
+
+        try:
+            # Authentication for the mailBroadcaster
+            login = mail.authentication()
+            # push message
+            sendMailStatus = mail.push(message)
+            return sendMailStatus
+        except:
+            return "Authentication failed"
 
 
 
 def broadcastmessage(message,sm,key):
-
+ 
     if sm == 'mail':
         status = init_mail(message,key)
     elif sm == 'twitter':
@@ -131,6 +133,6 @@ def broadcastmessage(message,sm,key):
 
 
     return status
-    
+  
 
 

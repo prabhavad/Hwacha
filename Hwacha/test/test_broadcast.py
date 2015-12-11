@@ -32,23 +32,28 @@ def test_broadcst2():
 
 def test_mailBroadcast():
 
-	key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'givecorrectPasshere'}
+	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
 	soc_media = 'mail'
-	code = "Error: unable to send email"
+	code = "success"
 
 	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
 	assert push_return == code 
+
+def test_mailBroadcast2():
+
+	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'wrongPass123'}
+	soc_media = 'mail'
+	code = "Authentication failed"
+
+	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
+	assert push_return == code
 	
     
 def test_authentication():
     mock = Mock()
     mock.authentication()
-    mock.return_value = "SMTPAuthenticationError"
+    mock.return_value = "True"
     mock.authentication.assert_called_with()
 
-def test_verification():
-    mock = Mock()
-    mock.verification()
-    mock.attribute = True
-    mock.verification.assert_called_with()
     
+
