@@ -16,7 +16,7 @@
 
 
 
-##AppControl:
+###AppControl:
 
 	getSmName()
 		Input: None
@@ -33,11 +33,6 @@
 		Output: Social media password
 		Specification: Read social media password from user
 
-	isInSocialMedia()
-		Input: Social media name, SMC.displaySm()
-		Output: Boolean
-		Specification: Check if the given social media is in the added social media list.
-
 
 	getMessage()
 		Input: None
@@ -49,7 +44,7 @@
 		Output: List of social media 
 		Specification: Read the list of social media to broadcast from user.
 
-##Authentification:
+###Authentification:
 
 	getUserName()
 		Input: None
@@ -61,7 +56,7 @@
 		Output: Password
 		Specification: Read the password from the user
 
-##SMC:
+###SMC:
 
 	addSm()
 		Input: getSmName(),getSmUserName(), getSmUserPasswd()
@@ -78,14 +73,25 @@
 		Output: Social media list
 		Specification:	Display the list of social media
 
-##Broadcast:
+	countSm()
+		Input: None
+		Output: Number of social media
+		Specification: Count the number of social medias in the social media list
+
+	isSmAvailable()
+		Input: getSmName()
+		Output: Boolean
+		Specification: Checks if the given social media is in the social media list
+
+
+###Broadcast:
 
 	broadcastMessage()
 		Input: getMessage(), getSmList() 
 		Output: Boolean
 		Specification: Broadcast the message to various social media
 
-##User:
+###User:
 
 	addUser()
 		Input: getUserName(), getUserPasswd() 
