@@ -16,8 +16,8 @@ class socialMediaController(object): # concrete class
     
     def rmSm(self,smName):
         smList=self.displaySm()
-        smList.remove(smName)
         try:
+            smList.remove(smName)
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
             return "success"    
