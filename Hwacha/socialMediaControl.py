@@ -1,26 +1,42 @@
+import json
 # Social media controller layer
+
 
 class socialMediaController(object): # concrete class
 
     # Constructor
-    def __init__(self):
-        self.socialMediaDetail = []
-
-    def addSm(self):
-        pass
-
-    def rmSm(self):
-        pass
+   
+    def addSm(self,smName):
+        smList=self.displaySm()
+        smList.append(smName)
+        with open('smName.txt','w') as outfile:
+            json.dump(smList,outfile)
+    
+    def rmSm(self,smName):
+        smList=self.displaySm()
+        smList.remove(smName)
+        with open('smName.txt','w') as outfile:
+            json.dump(smList,outfile)
+        
 
     def displaySm(self):
-        return self.socialMediaDetail
+       try:
+           with open('smName.txt')as infile:
+               return json.load(infile)
+       except:
+           return []
 
     def countSm(self):
         """ countSm() returns the number of social medias inside social media controller"""
-        self.count=0
-        for item in self.socialMediaDetail:
-            self.count = self.count + 1
-        return self.count
+        return len(self.display())
 
-    def isSmAvailable(self):
-        pass
+
+
+# a=socialMediaController()
+# print type(a)
+# a.addSm('mail')
+# print a.displaySm()
+# a.addSm('twitter')
+# print a.displaySm()
+# a.rmSm('mail')
+# print a.displaySm()

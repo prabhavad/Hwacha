@@ -1,15 +1,9 @@
 import pytest
 import socialMediaControl
 
-def test_countSm():
+def test_SmControl():
     smObject = socialMediaControl.socialMediaController()
-    count = smObject.countSm()
-    assert count == 0
-
-def test_displaySm():
-    smObject = socialMediaControl.socialMediaController()
-    returnVal = smObject.displaySm()
-    assert returnVal == []
+    assert isinstance(smObject,socialMediaControl.socialMediaController)
 
 
     
