@@ -133,13 +133,6 @@ def broadcastmessage(message,sm,key):
 
 
     return status
-
-
-key = {'subject':'Test Subject', 'to':'simsarulhaqv@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
-soc_media = 'mail'
-code = "Error: unable to send email"
-
-push_return = broadcastmessage('Hello',soc_media,key)
-print push_return    
+  
 
 
