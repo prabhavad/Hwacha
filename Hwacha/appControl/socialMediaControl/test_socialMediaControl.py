@@ -9,17 +9,17 @@ def test_SmControl():
 def test_addSm():
     smObject = socialMediaControl.socialMediaController()
     retValue = smObject.addSm('facebook')
-    assert retValue == "success"
+    assert retValue == True
 
 def test_rmSm():
     smObject = socialMediaControl.socialMediaController()
     retValue = smObject.rmSm('facebook')
-    assert retValue == "success"
+    assert retValue == True
 
 def test_rmSm2():
     smObject = socialMediaControl.socialMediaController()
     retValue = smObject.rmSm('NotInSmListName')
-    assert retValue == "failure"
+    assert retValue == False
 
 def test_isSmAvailable():    
     smObject = socialMediaControl.socialMediaController()
