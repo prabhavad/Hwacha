@@ -39,7 +39,6 @@ class socialMediaController(object): # concrete class
     def isSmAvailable(self,smedia):
         try:
             with open('smName.txt') as infile:
-                print infile
                 if (smedia in self.displaySm()):
                     return True
                 else:
