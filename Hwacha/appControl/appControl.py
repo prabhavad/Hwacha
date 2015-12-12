@@ -6,11 +6,19 @@ class appController(object): # concrete class
         smName = raw_input()
         return smName
 
-    def getSmUserName(self):
-        pass
+    def getSmUserName(self,raw_input):
+        try:
+            smUserName= raw_input()
+            return smUserName
+        except:
+            return error
 
-    def getSmUserPasswd(self):
-        pass
+    def getSmUserPasswd(self,raw_input):
+         try:
+            smPwd= raw_input()
+            return smPwd
+         except:
+            return error
 
     def getMessage(self):
         pass
