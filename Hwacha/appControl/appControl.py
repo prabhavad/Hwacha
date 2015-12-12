@@ -20,11 +20,19 @@ class appController(object): # concrete class
          except:
             return error
 
-    def getMessage(self):
-        pass
+    def getMessage(self,raw_input):
+        try:
+            smMsg= raw_input()
+            return smMsg
+        except:
+            return error
 
     def getSmList(self):
-        pass
+         try:
+            smPwd= raw_input()
+            return smPwd
+         except:
+            return error
 
     def isInSmList(self):
         pass
