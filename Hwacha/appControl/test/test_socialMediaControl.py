@@ -1,9 +1,6 @@
-import sys, os
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/../socialMediaControl/')
 
 import pytest
-import socialMediaControl
+from ..socialMediaControl import socialMediaControl
 
 
 def test_SmControl():
