@@ -1,5 +1,4 @@
 # App controller layer
-
 class appController(object): # concrete class
 
     def getSmName(self,raw_input):
@@ -27,12 +26,20 @@ class appController(object): # concrete class
         except:
             return error
 
-    def getSmList(self):
+    def getSmList(self,raw_input):
          try:
-            smPwd= raw_input()
-            return smPwd
+            smList= raw_input()
+            return smList
          except:
             return error
 
-    def isInSmList(self):
-        pass
+
+    def isInSmList(self,smedia):
+        try:
+            if smedia in smList :
+                return True
+            else :
+                return False
+        except:
+            return False
+        
