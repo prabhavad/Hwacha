@@ -1,8 +1,10 @@
-import sys, os
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/../broadcast/')
+# import sys, os
+# myPath = os.path.dirname(os.path.abspath(__file__))
+# sys.path.insert(0, myPath + '/../broadcast/')
 
-import broadcast
+
+
+from ..broadcast import broadcast
 import pytest
 import random
 from mock import Mock
