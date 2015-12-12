@@ -9,7 +9,9 @@ def test_SmControl():
 def test_addSm():
     smObject = socialMediaControl.socialMediaController()
     retValue = smObject.addSm('facebook')
+    retValue2 = smObject.addSm('twitter')
     assert retValue == True
+    assert retValue2 == True
 
 def test_rmSm():
     smObject = socialMediaControl.socialMediaController()
