@@ -10,9 +10,9 @@ class socialMediaController(object): # concrete class
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
-            return "success"
+            return True
         except: 
-            return "failure"
+            return False
     
     def rmSm(self,smName):
         smList=self.displaySm()
@@ -20,9 +20,9 @@ class socialMediaController(object): # concrete class
             smList.remove(smName)
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
-            return "success"    
+            return True    
         except:
-            return "failure"
+            return False
         
 
     def displaySm(self):
