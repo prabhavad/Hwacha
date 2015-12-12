@@ -36,4 +36,10 @@ class socialMediaController(object): # concrete class
         """ countSm() returns the number of social medias inside social media controller"""
         return len(self.displaySm())
 
+    def isSmAvailable(self,smedia):
+       with open('smName.txt')as infile:
+           if (smedia in infile):
+               return True
+           else:
+               return False
 
