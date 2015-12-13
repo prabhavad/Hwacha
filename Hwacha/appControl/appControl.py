@@ -1,10 +1,10 @@
 # App controller layer
 
-import sys, os
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/socialMediaControl/' + '/broadcast/')
+#import sys, os
+#myPath = os.path.dirname(os.path.abspath(__file__))
+#sys.path.insert(0, myPath + '/socialMediaControl/' + '/broadcast/')
 
-#import socialMediaControl
+from socialMediaControl import socialMediaControl
 
 
 class appController(object): # concrete class
@@ -44,26 +44,16 @@ class appController(object): # concrete class
          except:
             return error
 
-
-
-#    def isInSmList(self,raw_input):
-#        try:
-#            smName = raw_input()
-#            boolValue = socialMediaController.isSmAvailable(smName)
-#            if boolValue == True:
-#                return True
-#            else:
-#                return False
-#        except:
-#            return False
-
-    def isInSmList(self,smedia):
+    def isInSmList(self,raw_input):
         try:
-            if smedia in smList :
+            smName = raw_input()
+            smObject = socialMediaControl.socialMediaController()
+            boolValue = smObject.isSmAvailable(smName)
+            if boolValue == True:
                 return True
-            else :
+            else:
                 return False
-        except:
+        except Exception as excpt:
             return False
-        
 
+            

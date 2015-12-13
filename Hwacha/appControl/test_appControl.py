@@ -1,8 +1,10 @@
 import sys, os
 myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../appControl/')
+
 import pytest
 import appControl
+from socialMediaControl import socialMediaControl
 
 def test_getSmName():
     appObject = appControl.appController()
@@ -29,6 +31,13 @@ def test_getSmList():
     Object= appControl.appController()
     retValue=Object.getSmList(lambda: "Twitter Facebook Gmail Tumblr")
     assert retValue == "Twitter Facebook Gmail Tumblr"
+
+def test_isInSmList():
+    appObject = appControl.appController()
+    smObject = socialMediaControl.socialMediaController()
+    retAdd = smObject.addSm('twitter')
+    retValue = appObject.isInSmList(lambda: 'twitter')
+    assert retValue == True
 
     
 

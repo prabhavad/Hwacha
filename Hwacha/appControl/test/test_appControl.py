@@ -1,6 +1,6 @@
 
 import pytest
-#import socialMediaControl
+from ../socialMediaControl import socialMediaControl
 from .. import appControl
 
 
