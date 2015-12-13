@@ -9,3 +9,7 @@ Hwacha is a broadcasting application. Hwacha enables you to broadcast your messa
 ### How to use Hwacha
 
 Hwacha is under major development. You are welcome to post issues.
+
+### How to Install Hwacha
+
+python setup.py install 
