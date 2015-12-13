@@ -1,9 +1,7 @@
 
 import pytest
-#from ../socialMediaControl import socialMediaControl
 from .. import appControl
-
-
+from ..socialMediaControl import socialMediaControl
 
 def test_getSmName():
     appObject = appControl.appController()
@@ -12,19 +10,32 @@ def test_getSmName():
 
 
 def test_getSmUserName():
-    appObject = appControl.appController()
-    retValue = appObject.getSmUserName(lambda: "fb_uname")
+    Object= appControl.appController()
+    retValue = Object.getSmUserName(lambda: "fb_uname")
     assert retValue == "fb_uname"
 
 def test_getSmUserPasswd():
-    appObject = appControl.appController()
-    retValue = appObject.getSmUserPasswd(lambda: "fbpwd12#3")
+    Object= appControl.appController()
+    retValue=Object.getSmUserPasswd(lambda: "fbpwd12#3")
     assert retValue == "fbpwd12#3"
 
-#def test_isInSmList():
- #   appObject = appControl.appController()
- #    smObject = socialMediaControl.socialMediaController()
- #   retAdd = smObject.addSm('twitter')
- #   retValue = appObject.isInSmList(lambda: 'twitter')
- #   assert retValue == True
+def test_getMessage():
+    Object= appControl.appController()
+    retValue=Object.getMessage(lambda: "This is a test message")
+    assert retValue == "This is a test message"
+
+def test_getSmList():
+    Object= appControl.appController()
+    retValue=Object.getSmList(lambda: "Twitter Facebook Gmail Tumblr")
+    assert retValue == "Twitter Facebook Gmail Tumblr"
+
+def test_isInSmList():
+    appObject = appControl.appController()
+    smObject = socialMediaControl.socialMediaController()
+    retAdd = smObject.addSm('twitter')
+    retValue = appObject.isInSmList(lambda: 'twitter')
+    assert retValue == True
+
+    
+
     
