@@ -1,6 +1,6 @@
-
-
+#sample command line ui unit
 import argparse
+
 
 parse = argparse.ArgumentParser()
 parse.add_argument('-m','--message',action='store',
@@ -11,8 +11,7 @@ parse.add_argument('-a','--add',action='append',dest='addList',
                       help = 'add social media to Hwatcha')
 parse.add_argument('-r','--remove',action='append',dest='rmList',
                       help = 'remove social media from Hwatcha' )
-parse.add_argument('-v','--verbose',action='store_true',default=False)
-parse.add_argument('-l','--list',action='store_true',default=False)
+
 
 results=parse.parse_args()
 print 'message =',results.message
