@@ -1,8 +1,4 @@
-# import sys, os
-# myPath = os.path.dirname(os.path.abspath(__file__))
-# sys.path.insert(0, myPath + '/../broadcast/')
-
-
+# Test for broadcast
 
 from ..broadcast import broadcast
 import pytest
@@ -36,23 +32,38 @@ def test_broadcst2():
     print push
     assert push == error_code
 
-def test_mailBroadcast():
+#def test_mailBroadcast1():
 
-	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
-	soc_media = 'mail'
-	code = "success"
+#	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
+#	soc_media = 'mail'
+#	code = "success"
 
-	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
-	assert push_return == code 
+#	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
+#	assert push_return == code 
 
 def test_mailBroadcast2():
 
-	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'wrongPass123'}
+	key = {'subject':'Test Subject', 'to':'userHwacha@gmail.com', 'consumer_key':'senderHwacha@gmail.com', 'consumer_secret':'wrongPass123'}
 	soc_media = 'mail'
 	code = "Authentication failed"
 
 	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
 	assert push_return == code
+
+def test_mailBroadcast():
+    mock_server = Mock()
+    mock_subject = Mock()
+    mock_to = Mock()
+    mock_sender = Mock()
+    mock_pass = Mock()
+    mailObject = broadcast.mailBroadcast(mock_subject, mock_to, mock_sender, mock_pass)
+    retAuthValue = mailObject.authentication(mock_server)
+    assert retAuthValue == "success"
+    mock_server.login.assert_called_with(mock_sender, mock_pass)
+    retPushValue = mailObject.push("hello",mock_server)
+    assert retPushValue == "success"
+    assert mock_server.ehlo.called
+    assert mock_server.starttls.called
 	
     
 def test_authentication():

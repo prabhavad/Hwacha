@@ -41,49 +41,53 @@ class mailBroadcast(Broadcast): # mail concrete class
     def __init__(self,SUBJECT,TO,CONSUMER_KEY,CONSUMER_SECRET) :
         self.SUBJECT = SUBJECT
         self.TO = TO
-        self.CONSUMER_KEY = CONSUMER_KEY
-        self.CONSUMER_SECRET = CONSUMER_SECRET
+        self.gmailSender = CONSUMER_KEY
+        self.gmailPass = CONSUMER_SECRET
 
-    def authentication(self):# authentication for the mail
+    def authentication(self,server):# authentication for the mail
         #Setting Gmail Credentials
-        gmailSender = self.CONSUMER_KEY
-        gmailPass = self.CONSUMER_SECRET
+        #gmailSender = self.CONSUMER_KEY
+        #gmailPass = self.CONSUMER_SECRET
 
         #Create connection to gmail server
-        server = smtplib.SMTP('smtp.gmail.com',587)
+        #server = smtplib.SMTP('smtp.gmail.com',587)
         server.ehlo()
         server.starttls()
         server.ehlo()
-        auth = server.login(gmailSender, gmailPass)
-        return auth
+        auth = server.login(self.gmailSender, self.gmailPass)
+        if auth:
+            return "success"
+        else:
+            return "failure"
 
-    def push(self,message) :
+    def push(self,message,server) :
 
-        gmailSender = self.CONSUMER_KEY
-        gmailPass = self.CONSUMER_SECRET
+        #gmailSender = self.CONSUMER_KEY
+        #gmailPass = self.CONSUMER_SECRET
 
-        server = smtplib.SMTP('smtp.gmail.com',587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        auth = server.login(gmailSender, gmailPass)
+        #server = smtplib.SMTP('smtp.gmail.com',587)
+        #server.ehlo()
+        #server.starttls()
+        #server.ehlo()
+        #auth = server.login(gmailSender, gmailPass)
 
         TO = self.TO
 
         BODY = '\r\n'.join([
                'To: %s' % self.TO,
-               'From: %s' % gmailSender,
+               'From: %s' % self.gmailSender,
                'Subject: %s' % self.SUBJECT,
                '%s' % message
                ])
 	
         #Sending the message
         try:
-                server.sendmail(gmailSender,[TO],BODY)
+                server.sendmail(self.gmailSender,[TO],BODY)
                 server.quit()
                 return "success"
 	except Exception as exptn:
                 server.quit()
+                print exptn
                 return "Error: unable to send email"
 
         
@@ -102,7 +106,7 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
     return status
 
 
-def init_mail(message,key): # mail initialisation
+def init_mail(message,server,key): # mail initialisation
     
 	toAddress = key['to']
 	subject = key['subject']
@@ -110,14 +114,16 @@ def init_mail(message,key): # mail initialisation
 	consumerKey = key['consumer_key']
 	consumerSecret = key['consumer_secret']
         
-        
 	mail = mailBroadcast(subject,toAddress,consumerKey,consumerSecret)
 
         try:
             # Authentication for the mailBroadcaster
-            login = mail.authentication()
+            login = mail.authentication(server)
             # push message
-            sendMailStatus = mail.push(message)
+            if login == "success":
+                sendMailStatus = mail.push(message,server)
+            else:
+                sendMailStatus = "login failure"
             return sendMailStatus
         except:
             return "Authentication failed"
@@ -127,12 +133,16 @@ def init_mail(message,key): # mail initialisation
 def broadcastmessage(message,sm,key):
  
     if sm == 'mail':
-        status = init_mail(message,key)
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        status = init_mail(message,server,key)
     elif sm == 'twitter':
         status = init_twitter(message,key)
 
-
     return status
   
+key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
+soc_media = 'mail'
+b = broadcastmessage("hello", soc_media, key)
+print b
 
 
