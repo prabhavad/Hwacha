@@ -31,16 +31,7 @@ def test_broadcst2():
     
     push = broadcast.broadcastmessage('Hello Hwach',soc_media,wrong_key)
     print push
-    assert push == error_code
-
-#def test_mailBroadcast1():
-
-#	key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
-#	soc_media = 'mail'
-#	code = "success"
-
-#	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
-#	assert push_return == code 
+    assert push == error_code 
 
 def test_mailBroadcast2():
 

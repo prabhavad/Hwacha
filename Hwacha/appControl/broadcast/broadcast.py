@@ -45,12 +45,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         self.gmailPass = CONSUMER_SECRET
 
     def authentication(self,server):# authentication for the mail
-        #Setting Gmail Credentials
-        #gmailSender = self.CONSUMER_KEY
-        #gmailPass = self.CONSUMER_SECRET
-
-        #Create connection to gmail server
-        #server = smtplib.SMTP('smtp.gmail.com',587)
+        
         server.ehlo()
         server.starttls()
         server.ehlo()
@@ -61,15 +56,6 @@ class mailBroadcast(Broadcast): # mail concrete class
             return "failure"
 
     def push(self,message,server) :
-
-        #gmailSender = self.CONSUMER_KEY
-        #gmailPass = self.CONSUMER_SECRET
-
-        #server = smtplib.SMTP('smtp.gmail.com',587)
-        #server.ehlo()
-        #server.starttls()
-        #server.ehlo()
-        #auth = server.login(gmailSender, gmailPass)
 
         TO = self.TO
 
@@ -140,9 +126,6 @@ def broadcastmessage(message,sm,key):
 
     return status
   
-key = {'subject':'Test Subject', 'to':'simsar009@gmail.com', 'consumer_key':'simsar012smtp@gmail.com', 'consumer_secret':'newPass295'}
-soc_media = 'mail'
-b = broadcastmessage("hello", soc_media, key)
-print b
+
 
 
