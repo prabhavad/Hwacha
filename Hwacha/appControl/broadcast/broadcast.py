@@ -120,14 +120,14 @@ def broadcastmessage(message,smList,key):
     statusMessage={}
     for sm in smList:
         if sm == 'mail':
-            # server = smtplib.SMTP('smtp.gmail.com',587)
-            # status = init_mail(message,server,key)
+            server = smtplib.SMTP('smtp.gmail.com',587)
+            status = init_mail(message,server,key[sm])
             status = True
-            statusMessage['mail'] = status
+            statusMessage[sm] = status
         
         elif sm == 'twitter':
-            status = init_twitter(message,key)
-            statusMessage['twitter'] = status
+            status = init_twitter(message,key[sm])
+            statusMessage[sm] = status
     
     return statusMessage
   
