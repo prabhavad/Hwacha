@@ -1,7 +1,7 @@
 # App controller layer
 
 from socialMediaControl import socialMediaControl
-import ui
+
 
 
 class appController(object): # concrete class

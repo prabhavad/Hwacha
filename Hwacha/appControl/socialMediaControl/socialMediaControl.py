@@ -1,11 +1,11 @@
 # Social media controller layer
 
 import json
-import ui
+
 
 class socialMediaController(object): # concrete class
    
-    def addSm(self,results.addList):
+    def addSm(self):
         smList=self.displaySm()
         smList.append(results.addList)
         try:
@@ -15,7 +15,7 @@ class socialMediaController(object): # concrete class
         except: 
             return False
     
-    def rmSm(self,results.rmList):
+    def rmSm(self):
         smList=self.displaySm()
         try:
             smList.remove(results.rmList)
