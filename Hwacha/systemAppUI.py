@@ -11,16 +11,19 @@ class hwachaForm(QtGui.QDialog):
         self.lineEdit = QtGui.QLineEdit("Message")
         # select all, so that user can overwrite
         self.lineEdit.selectAll()
+        self.button =QtGui.QPushButton("Send")
         layout = QtGui.QVBoxLayout()
         # add widgets to the layout
         layout.addWidget(self.browser)
         layout.addWidget(self.lineEdit)
+        layout.addWidget(self.button)
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
         self.setLayout(layout)
         # set focus to the start of lineEdit
         self.lineEdit.setFocus()
         # To signal the press of the return
         self.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), self.updateUi)
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
         self.setWindowTitle("Hwacha")
 
     def updateUi(self):
