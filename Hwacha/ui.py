@@ -1,17 +1,22 @@
-#sample command line ui unit
+# Hwacha Command Line Interface
 import argparse
+import sys
 
-
-parse = argparse.ArgumentParser()
-parse.add_argument('-m','--message',action='store',
-                     help='message to broadcast')
-parse.add_argument('-b','--broadcast',action='append',dest='smList',
-                     help = 'add social media to to braodcast list')
-parse.add_argument('-a','--add',action='append',dest='addList',
-                      help = 'add social media to Hwatcha')
-parse.add_argument('-r','--remove',action='append',dest='rmList',
-                      help = 'remove social media from Hwatcha' )
-
+try: 
+    parse = argparse.ArgumentParser()
+    parse.add_argument('-m','--message',action='store',
+                       help='Message to broadcast.')
+    parse.add_argument('-b','--broadcast',action='append',dest='smList',
+                       help = 'Add social media into broadcast list')
+    parse.add_argument('-a','--add',action='append',dest='addList',
+                       help = 'Add social media to Hwacha')
+    parse.add_argument('-r','--remove',action='append',dest='rmList',
+                       help = 'Remove social media from Hwacha')
+    if len(sys.argv) == 1:
+       sys.exit(1)
+except:
+    parse.print_help()
+    sys.exit("Exiting. Read help for further information 'python ui.py --help'") 
 
 results=parse.parse_args()
 print 'message =',results.message

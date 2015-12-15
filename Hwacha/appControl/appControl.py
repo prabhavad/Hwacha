@@ -1,6 +1,7 @@
 # App controller layer
 
 from socialMediaControl import socialMediaControl
+import ui
 
 
 class appController(object): # concrete class
@@ -14,28 +15,28 @@ class appController(object): # concrete class
 
     def getSmUserName(self,raw_input):
         try:
-            smUserName= raw_input()
+            smUserName = raw_input()
             return smUserName
         except:
             return "Failed"
 
     def getSmUserPasswd(self,raw_input):
          try:
-            smPwd= raw_input()
+            smPwd = raw_input()
             return smPwd
          except:
             return "Failed"
 
     def getMessage(self,raw_input):
         try:
-            smMsg= raw_input()
+            smMsg = results.message
             return smMsg
         except:
             return error
 
     def getSmList(self,raw_input):
          try:
-            smList= raw_input()
+            smList= results.smList
             return smList
          except:
             return error
