@@ -1,8 +1,5 @@
 # App controller layer
-
 from socialMediaControl import socialMediaControl
-import ui
-
 
 class appController(object): # concrete class
 
@@ -29,17 +26,17 @@ class appController(object): # concrete class
 
     def getMessage(self,raw_input):
         try:
-            smMsg = results.message
+            smMsg = raw_input()
             return smMsg
         except:
-            return error
+            return "Failed"
 
     def getSmList(self,raw_input):
          try:
-            smList= results.smList
+            smList= raw_input()
             return smList
          except:
-            return error
+            return "Failed"
 
     def isInSmList(self,raw_input):
         try:

@@ -1,13 +1,12 @@
 # Social media controller layer
 
 import json
-import ui
 
 class socialMediaController(object): # concrete class
    
-    def addSm(self,results.addList):
+    def addSm(self,smName):
         smList=self.displaySm()
-        smList.append(results.addList)
+        smList.append(smName)
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
@@ -15,10 +14,10 @@ class socialMediaController(object): # concrete class
         except: 
             return False
     
-    def rmSm(self,results.rmList):
+    def rmSm(self,smName):
         smList=self.displaySm()
         try:
-            smList.remove(results.rmList)
+            smList.remove(smName)
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
             return True    
