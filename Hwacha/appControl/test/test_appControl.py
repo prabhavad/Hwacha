@@ -32,7 +32,7 @@ def test_getAddList():
 def test_getRmList():
     Object= appControl.appController()
     retValue=Object.getRmList(lambda: "Mail")
-    assert retValue == []
+    assert retValue == "Failed"
     
 def test_getSmList():
     Object= appControl.appController()
