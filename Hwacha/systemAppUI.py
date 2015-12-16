@@ -1,4 +1,5 @@
 import sys
+from appControl import appControl
 from PyQt4 import QtGui,QtCore
 
 class hwachaForm(QtGui.QDialog):
@@ -16,7 +17,10 @@ class hwachaForm(QtGui.QDialog):
         self.button = QtGui.QPushButton("Send")
         self.smComboBox = QtGui.QComboBox()
         self.smComboBox.addItem("None")
-        self.smComboBox.addItems(["Twitter","Mail"])
+        #self.smComboBox.addItems(["Twitter","Mail"])
+        #create app object
+        appObject = appControl.appController()
+        self.smComboBox.addItems(appObject.getAvailableSmList())
         self.lineEdit2 = QtGui.QLineEdit("Choose Social Media Name")
 
         layout = QtGui.QVBoxLayout()
