@@ -29,6 +29,9 @@ obj = appController()
 
 obj.getMessage(results.message)
 obj.getsmList(smList)
+obj.getAddList(addList)
+obj.getRmList(rmList)
+
 
 
 
