@@ -11,29 +11,35 @@ class hwachaForm(QtGui.QDialog):
 
         self.browser = QtGui.QTextBrowser()
         self.lineEdit = QtGui.QLineEdit("Message")
-        # select all, so that user can overwrite
+        # Select all, so that user can overwrite
         self.lineEdit.selectAll()
         self.button = QtGui.QPushButton("Send")
         self.smComboBox = QtGui.QComboBox()
         self.smComboBox.addItems(["Twitter","Mail"])
+        self.lineEdit2 = QtGui.QLineEdit("")
 
         layout = QtGui.QVBoxLayout()
 
-        # add widgets to the layout
+        # Add widgets to the layout
         layout.addWidget(self.browser)
         layout.addWidget(self.lineEdit)
+        layout.addWidget(self.lineEdit2)
         layout.addWidget(self.smComboBox)
         layout.addWidget(self.button)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
         self.setLayout(layout)
 
-        # set focus to the start of lineEdit
+        # Set focus to the start of lineEdit
         self.lineEdit.setFocus()
 
         # To signal the press of the return
         self.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), self.updateUi)
+        # To signal the click over the button
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
+        # To signal index change in comboBox
+        self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
+
         self.setWindowTitle("Hwacha")
 
     def updateUi(self):
