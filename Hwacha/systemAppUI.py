@@ -10,18 +10,24 @@ class hwachaForm(QtGui.QDialog):
         # Super to initialize the form
         super(hwachaForm, self).__init__(parent)
 
+        # Some data abstractions
+        self.defaultMessage = "Message"
+        self.send = "Send"
+        self.emptySm = "None"
+        self.defaultSmName = "Choose Social Media Name"
+
         self.browser = QtGui.QTextBrowser()
-        self.lineEdit = QtGui.QLineEdit("Message")
+        self.lineEdit = QtGui.QLineEdit(self.defaultMessage)
         # Select all, so that user can overwrite
         self.lineEdit.selectAll()
-        self.button = QtGui.QPushButton("Send")
+        self.button = QtGui.QPushButton(self.send)
         self.smComboBox = QtGui.QComboBox()
-        self.smComboBox.addItem("None")
+        self.smComboBox.addItem(self.emptySm)
 
         #create app object
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
-        self.lineEdit2 = QtGui.QLineEdit("Choose Social Media Name")
+        self.lineEdit2 = QtGui.QLineEdit(self.defaultSmName)
 
         layout = QtGui.QVBoxLayout()
 
@@ -50,12 +56,19 @@ class hwachaForm(QtGui.QDialog):
     def updateUi(self):
         try:
             text = unicode(self.lineEdit.text())
+            smName = unicode(self.lineEdit2.text())
             appObject = appControl.appController()
-            retValue = appObject.getSmName(lambda: text)
+
+            retValue = appObject.getMessage(lambda: text)
+            retValue2 = appObject.getSmName(lambda: smName)
             if retValue == text: 
-                self.browser.append("<b>%s</b>" % (text))
+                if retValue2 == smName:
+                    self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
+                else:
+                    raise ValueError('Message cannot be broadcasted')
             else:
                 raise ValueError('Message cannot be read')
+
         except:
             self.browser.append("<font color=red>Error</font>")
 
