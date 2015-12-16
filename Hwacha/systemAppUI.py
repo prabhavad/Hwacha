@@ -17,7 +17,7 @@ class hwachaForm(QtGui.QDialog):
         self.button = QtGui.QPushButton("Send")
         self.smComboBox = QtGui.QComboBox()
         self.smComboBox.addItem("None")
-        #self.smComboBox.addItems(["Twitter","Mail"])
+
         #create app object
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
@@ -50,7 +50,12 @@ class hwachaForm(QtGui.QDialog):
     def updateUi(self):
         try:
             text = unicode(self.lineEdit.text())
-            self.browser.append("<b>%s</b>" % (text))
+            appObject = appControl.appController()
+            retValue = appObject.getSmName(lambda: text)
+            if retValue == text: 
+                self.browser.append("<b>%s</b>" % (text))
+            else:
+                raise ValueError('Message cannot be read')
         except:
             self.browser.append("<font color=red>Error</font>")
 
