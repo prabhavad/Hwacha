@@ -50,4 +50,12 @@ class appController(object): # concrete class
         except Exception as excpt:
             return False
 
-            
+    def getAvailableSmList(self):
+        try:
+            smObject = socialMediaControl.socialMediaController()
+            smList = smObject.displaySm()
+            return smList
+        except:
+            return []
+
+
