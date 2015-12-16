@@ -15,16 +15,17 @@ class hwachaForm(QtGui.QDialog):
         self.lineEdit.selectAll()
         self.button = QtGui.QPushButton("Send")
         self.smComboBox = QtGui.QComboBox()
+        self.smComboBox.addItem("None")
         self.smComboBox.addItems(["Twitter","Mail"])
-        self.lineEdit2 = QtGui.QLineEdit("")
+        self.lineEdit2 = QtGui.QLineEdit("Choose Social Media Name")
 
         layout = QtGui.QVBoxLayout()
 
         # Add widgets to the layout
         layout.addWidget(self.browser)
         layout.addWidget(self.lineEdit)
-        layout.addWidget(self.lineEdit2)
         layout.addWidget(self.smComboBox)
+        layout.addWidget(self.lineEdit2)
         layout.addWidget(self.button)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
