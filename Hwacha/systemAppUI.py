@@ -54,6 +54,7 @@ class hwachaForm(QtGui.QDialog):
         self.setWindowTitle("Hwacha")
 
     def updateUi(self):
+        self.browser.append("<font color=yellow>=)Hwacha=)</font>")
         try:
             text = unicode(self.lineEdit.text())
             smName = unicode(self.lineEdit2.text())
@@ -63,14 +64,20 @@ class hwachaForm(QtGui.QDialog):
             retValue2 = appObject.getSmName(lambda: smName)
             if retValue == text: 
                 if retValue2 == smName:
-                    self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
+                    if retValue2 != self.defaultSmName: 
+                        self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
+                    else:
+                        self.browser.append("<font color=red>Social Media not choosen</font>")
+                        raise ValueError('Social Media not choosen')
                 else:
+                    self.browser.append("<font color=red>Message cannot be broadcasted</font>")
                     raise ValueError('Message cannot be broadcasted')
             else:
+                self.browser.append("<font color=red>Message cannot be readr</font>")
                 raise ValueError('Message cannot be read')
-
         except:
             self.browser.append("<font color=red>Error</font>")
+        self.browser.append("<font color=yellow>(=Hwacha(=</font>")
 
 app = QtGui.QApplication(sys.argv)
 form = hwachaForm()
