@@ -33,7 +33,7 @@ class appController(object): # concrete class
     def getAddList(self, raw_input):
         addlist = []
         try:
-            addList.append(raw_input())
+           addList = addList.append(raw_input())
             return addList
         except:
             return "Failed"
