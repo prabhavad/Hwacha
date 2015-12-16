@@ -30,6 +30,21 @@ class appController(object): # concrete class
             return smMsg
         except:
             return "Failed"
+    def getAddList(self, raw_input):
+        addlist = []
+        try:
+           addList = addList.append(raw_input())
+            return addList
+        except:
+            return "Failed"
+    def getRmList(self, raw_input):
+        rmList = []
+        try:
+            rmList = rmList.append(raw_input())
+            return rmList
+        except:
+            return "failed"
+            
 
     def getSmList(self,raw_input):
          try:
@@ -50,4 +65,12 @@ class appController(object): # concrete class
         except Exception as excpt:
             return False
 
-            
+    def getAvailableSmList(self):
+        try:
+            smObject = socialMediaControl.socialMediaController()
+            smList = smObject.displaySm()
+            return smList
+        except:
+            return []
+
+
