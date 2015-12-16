@@ -1,6 +1,7 @@
 # Hwacha Command Line Interface
 import argparse
 import sys
+import appControl
 
 try: 
     parse = argparse.ArgumentParser()
@@ -23,6 +24,14 @@ print 'message =',results.message
 print 'smList =',results.smList
 print 'addList =',results.addList
 print 'rmList =',results.rmList
+
+obj = appController()
+
+obj.getMessage(results.message)
+obj.getsmList(smList)
+obj.getAddList(addList)
+obj.getRmList(rmList)
+
 
 
 

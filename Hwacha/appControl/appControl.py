@@ -30,6 +30,21 @@ class appController(object): # concrete class
             return smMsg
         except:
             return "Failed"
+    def getAddList(self, raw_input):
+        addlist = []
+        try:
+           addList = addList.append(raw_input())
+            return addList
+        except:
+            return "Failed"
+    def getRmList(self, raw_input):
+        rmList = []
+        try:
+            rmList = rmList.append(raw_input())
+            return rmList
+        except:
+            return "failed"
+            
 
     def getSmList(self,raw_input):
          try:
