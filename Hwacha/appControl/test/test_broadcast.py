@@ -33,14 +33,14 @@ def test_broadcst2():
     print push
     assert push == error_code 
 
-def test_mailBroadcast2():
+# def test_mailBroadcast2():
 
-	key = {'subject':'Test Subject', 'to':'userHwacha@gmail.com', 'consumer_key':'senderHwacha@gmail.com', 'consumer_secret':'wrongPass123'}
-	soc_media = 'mail'
-	code = "Authentication failed"
+#	key = {'subject':'Test Subject', 'to':'userHwacha@gmail.com', 'consumer_key':'senderHwacha@gmail.com', 'consumer_secret':'wrongPass123'}
+#	soc_media = 'mail'
+#	code = "Authentication failed"
 
-	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
-	assert push_return == code
+#	push_return = broadcast.broadcastmessage('Hello',soc_media,key)
+#	assert push_return == code
 
 def test_mailBroadcast():
     mock_server = Mock()

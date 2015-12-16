@@ -1,12 +1,5 @@
 # App controller layer
-
-#import sys, os
-#myPath = os.path.dirname(os.path.abspath(__file__))
-#sys.path.insert(0, myPath + '/socialMediaControl/' + '/broadcast/')
-
 from socialMediaControl import socialMediaControl
-import ui
-
 
 class appController(object): # concrete class
 
@@ -33,17 +26,17 @@ class appController(object): # concrete class
 
     def getMessage(self,raw_input):
         try:
-            smMsg = results.message
+            smMsg = raw_input()
             return smMsg
         except:
-            return error
+            return "Failed"
 
     def getSmList(self,raw_input):
          try:
-            smList= results.smList
+            smList= raw_input()
             return smList
          except:
-            return error
+            return "Failed"
 
     def isInSmList(self,raw_input):
         try:
