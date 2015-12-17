@@ -103,6 +103,7 @@ class appController(object): # concrete class
             return bcstatus
         except:
             return False
+
     def broadcaster(self,message,smList,key):
         try:
             retValue = broadcast.broadcastmessage(message,smList,key)

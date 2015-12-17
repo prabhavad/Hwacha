@@ -16,6 +16,7 @@ class hwachaForm(QtGui.QDialog):
         self.emptySm = "None"
         self.defaultSmName = "Choose Social Media Name"
         self.requiredSmList = []
+        self.key = []
 
         self.browser = QtGui.QTextBrowser()
         self.lineEdit = QtGui.QLineEdit(self.defaultMessage)
@@ -54,6 +55,8 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.cleanBrowser2)
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.resetRequiredSmList)
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.getKey)
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.broadcast)
 
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
@@ -61,6 +64,13 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmList)
 
         self.setWindowTitle("Hwacha")
+
+    def getKey(self):
+        appObject = appControl.appController()
+        retValue = appObject.getKey(lambda: self.key)
+
+    def broadcast(self):
+        pass
 
     def resetRequiredSmList(self):
         self.requiredSmList = []
@@ -93,8 +103,8 @@ class hwachaForm(QtGui.QDialog):
         try:
             text = unicode(self.lineEdit.text())
             smName = unicode(self.lineEdit2.text())
-            appObject = appControl.appController()
 
+            appObject = appControl.appController()
             retValue = appObject.getMessage(lambda: text)
             retValue2 = appObject.getSmName(lambda: smName)
             if retValue == text: 
