@@ -29,8 +29,9 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
         def push(self,api,message):
            try:
-               api.update_status(message)
+               api.update_status(status=message)
            except tweepy.TweepError as e:
+
                return  e[0][0]['code']
 
             
@@ -122,7 +123,6 @@ def broadcastmessage(message,smList,key):
         if sm == 'mail':
             server = smtplib.SMTP('smtp.gmail.com',587)
             status = init_mail(message,server,key[sm])
-            status = True
             statusMessage[sm] = status
         
         elif sm == 'twitter':
@@ -130,7 +130,5 @@ def broadcastmessage(message,smList,key):
             statusMessage[sm] = status
     
     return statusMessage
-  
-
 
 

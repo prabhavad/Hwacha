@@ -28,6 +28,16 @@ class socialMediaController(object): # concrete class
         except:
             return False
         
+    def dropSm(self,rmList):
+        data=[]
+        try:
+            with open('smName.txt','w') as outfile:
+                json.dump(data,outfile)
+            return True    
+        except:
+            return False
+
+
 
     def displaySm(self):
        try:
