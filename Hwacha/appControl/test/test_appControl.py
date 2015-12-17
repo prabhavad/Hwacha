@@ -24,6 +24,16 @@ def test_getMessage():
     retValue=Object.getMessage(lambda: "This is a test message")
     assert retValue == "This is a test message"
 
+def test_getAddList():
+    Object= appControl.appController()
+    retValue=Object.getAddList(lambda: "Mail")
+    assert retValue == ["Mail"]
+
+def test_getRmList():
+    Object= appControl.appController()
+    retValue=Object.getRmList(lambda: "Mail")
+    assert retValue == "Failed"
+    
 def test_getSmList():
     Object= appControl.appController()
     retValue=Object.getSmList(lambda: "Twitter Facebook Gmail Tumblr")

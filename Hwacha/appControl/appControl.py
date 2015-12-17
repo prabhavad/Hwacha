@@ -30,20 +30,25 @@ class appController(object): # concrete class
             return smMsg
         except:
             return "Failed"
+
+
     def getAddList(self, raw_input):
-        addlist = []
+        addList = []
         try:
-           addList = addList.append(raw_input())
-            return addList
+           addList.append(raw_input())
+           return addList
         except:
             return "Failed"
+
     def getRmList(self, raw_input):
-        rmList = []
+        # This is temporary, remove this line before using
+        rmList = ["fb","mail"]
+        # Remove above line before using as an API
         try:
-            rmList = rmList.append(raw_input())
+            rmList.remove(raw_input())
             return rmList
         except:
-            return "failed"
+            return "Failed"
             
 
     def getSmList(self,raw_input):
@@ -72,5 +77,3 @@ class appController(object): # concrete class
             return smList
         except:
             return []
-
-
