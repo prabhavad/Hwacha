@@ -26,10 +26,12 @@ def test_rmSm2():
 
 def test_isSmAvailable():    
     smObject = socialMediaControl.socialMediaController()
-    retValue = smObject.isSmAvailable('twitter')
+    retAdd = smObject.addSm(['twitter','facebook'])
+    retValue = smObject.isSmAvailable("twitter")
     assert retValue == True
 
 def test_isSmAvailable2():    
     smObject = socialMediaControl.socialMediaController()
     retValue = smObject.isSmAvailable('NotInSmlistName')
     assert retValue == False
+    

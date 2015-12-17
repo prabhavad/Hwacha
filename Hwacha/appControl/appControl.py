@@ -47,7 +47,7 @@ class appController(object): # concrete class
         rmList = []
         
         try:
-            rmList.remove(raw_input())
+            rmList.append(raw_input())
             return rmList
         except:
             return "Failed"
@@ -62,7 +62,7 @@ class appController(object): # concrete class
 
     def isInSmList(self,raw_input):
         try:
-            smName = raw_input()
+            smName = raw_input
             smObject = socialMediaControl.socialMediaController()
             boolValue = smObject.isSmAvailable(smName)
             if boolValue == True:
@@ -103,7 +103,6 @@ class appController(object): # concrete class
             return bcstatus
         except:
             return False
-
     def broadcaster(self,message,smList,key):
         try:
             retValue = broadcast.broadcastmessage(message,smList,key)

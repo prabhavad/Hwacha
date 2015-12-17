@@ -7,8 +7,8 @@ class socialMediaController(object): # concrete class
     def addSm(self,addList):
         smList=self.displaySm()
         for i in addList:
-            if i not in smList:
-                smList.append(i)
+            smList.append(i)
+       
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
@@ -48,8 +48,7 @@ class socialMediaController(object): # concrete class
            return []
 
     def countSm(self):
-        """ countSm() returns the number of social medias
-        inside social media controller"""
+        """ countSm() returns the number of social medias inside social media controller"""
         return len(self.displaySm())
 
     def isSmAvailable(self,smedia):

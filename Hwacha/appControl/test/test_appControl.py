@@ -32,7 +32,7 @@ def test_getAddList():
 def test_getRmList():
     Object= appControl.appController()
     retValue=Object.getRmList(lambda: "Mail")
-    assert retValue == "Failed"
+    assert retValue == ["Mail"]
     
 def test_getSmList():
     Object= appControl.appController()
@@ -42,8 +42,20 @@ def test_getSmList():
 def test_isInSmList():
     appObject = appControl.appController()
     smObject = socialMediaControl.socialMediaController()
-    retAdd = smObject.addSm('twitter')
-    retValue = appObject.isInSmList(lambda: 'twitter')
+    retAdd = smObject.addSm(['twitter','facebook'])
+    retValue = appObject.isInSmList('facebook')
+    assert retValue == True
+
+def test_isInSmList2():
+    appObject = appControl.appController()
+    smObject = socialMediaControl.socialMediaController()
+    retAdd = smObject.addSm(['twitter','facebook'])
+    retValue = appObject.isInSmList('mail')
+    assert retValue == False
+
+def test_addSm():
+    appObject=appControl.appController()
+    retValue = appObject.addSm('Mail')
     assert retValue == True
 
     
