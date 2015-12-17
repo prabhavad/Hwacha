@@ -54,10 +54,14 @@ def test_isInSmList2():
     assert retValue == False
 
 def test_addSm():
-    appObject=appControl.appController()
+    appObject = appControl.appController()
     retValue = appObject.addSm('Mail')
     assert retValue == True
 
-    
+def test_getAvailableSmList():
+    smObject = socialMediaControl.socialMediaController()
+    appObject = appControl.appController()
+    retValue = appObject.getAvailableSmList()
+    assert retValue == smObject.displaySm()
 
     
