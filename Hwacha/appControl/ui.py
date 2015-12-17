@@ -3,6 +3,7 @@ import argparse
 import sys
 import appControl
 
+
 def display():
     try: 
         parse = argparse.ArgumentParser()
@@ -23,35 +24,21 @@ def display():
         sys.exit("Exiting. Read help for further information 'python ui.py --help'") 
     return parse
 
-parse=display()
-results=parse.parse_args()
-appObject=appControl.appController()
 
-
-
-if results.message:
-    if not results.smList:
-        sys.exit("Exiting. Please select social media using '-b' option")
-    else:
-       print  appObject.broadcastMessage(results.message,results.smList)
-
-
-
-if results.addList:
-    
+def addSocialMedia(addList):
     currentList=appObject.getAvailableSmList()
-    inputList=results.addList[:]
+    inputList=addList[:]
     
-    for i in results.addList:
-        
+    for i in addList:
         if i in currentList:
             print "'%s' already in social Media List" %(i)
             inputList.remove(i)
     
-    if appObject.addSm(inputList):
-        print '\n'
-        for i in inputList:
-            print "Adding '%s' to Social Media list" %(i)
+    if inputList:
+        if appObject.addSm(inputList):
+            print '\n'
+            for i in inputList:
+                print "Adding '%s' to Social Media list" %(i)
 
 
     print  '\nAvailable Social Media'
@@ -61,12 +48,63 @@ if results.addList:
     
 
 
-if results.rmList:
-    if appObject.removeSm(results.rmList):
-        for i in results.rmList:
+def removeSocialMedia(rmList):    
+    currentList = appObject.getAvailableSmList()
+    inputList = rmList[:]
+    for i in rmList:
+        if i not in currentList:
+               print "'%s' not in Social Media list" %(i)
+               inputList.remove(i)
+       
+    if appObject.removeSm(inputList):
+        for i in inputList:
             print "Removing '%s' from Social Media list" %(i)
-    print  'Available Social Media'+ appObject.getAvailableSmList()
     
+    
+    print  'Available Social Media' 
+    print 20*'*'
+    for i in appObject.getAvailableSmList():
+        print i
+
+
+def BroadcastMessage(message,smList):
+        if not smList:
+            sys.exit("Exiting. Please select social media using '-b' option")
+        else:
+           currentList = appObject.getAvailableSmList()
+           inputList=smList[:]
+           for i in smList:
+               if i not in currentList:
+                   print "%s not in Social Media List, Please add using '-b' option" %(i)
+                   inputList.remove(i)
+           
+           status= appObject.broadcastMessage(message,inputList)
+           print  'Status'
+           print 20*'*'
+           for key in status:
+               print ' %s : %s ' %(key,status[key])
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    parse=display()
+    results=parse.parse_args()
+    appObject=appControl.appController()
+
+    if results.addList:
+        addSocialMedia(results.addList)
+
+    if results.rmList:
+        removeSocialMedia(results.rmList)
+
+    if results.message:
+        BroadcastMessage(results.message,results.smList)
+
+
 
 
 
