@@ -1,5 +1,7 @@
 # App controller layer
 from socialMediaControl import socialMediaControl
+from broadcast import broadcast
+from socialMediaControl import key_file 
 
 class appController(object): # concrete class
 
@@ -77,3 +79,27 @@ class appController(object): # concrete class
             return smList
         except:
             return []
+
+    def addSm(self,smList):
+        try:
+            smObject = socialMediaControl.socialMediaController()
+            smList = smObject.addSm(smList)
+            return True
+        except:
+            return False
+
+    def removeSm(self,smList):
+        try:
+            smObject = socialMediaControl.socialMediaController()
+            smList = smObject.rmSm(smList)
+            return True
+        except:
+            return False
+
+    def broadcastMessage(self,message,smList):
+        key=key_file.key
+        try:
+            bcstatus = broadcast.broadcastmessage(message,smList,key)
+            return bcstatus
+        except:
+            return False

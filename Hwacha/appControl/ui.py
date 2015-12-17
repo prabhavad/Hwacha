@@ -1,7 +1,7 @@
 # Hwacha Command Line Interface
 import argparse
 import sys
-
+import appControl
 
 def display():
     try: 
@@ -24,12 +24,49 @@ def display():
     return parse
 
 parse=display()
-
 results=parse.parse_args()
-print 'message =',results.message
-print 'smList =',results.smList
-print 'addList =',results.addList
-print 'rmList =',results.rmList
+appObject=appControl.appController()
+
+
+
+if results.message:
+    if not results.smList:
+        sys.exit("Exiting. Please select social media using '-b' option")
+    else:
+       print  appObject.broadcastMessage(results.message,results.smList)
+
+
+
+if results.addList:
+    
+    currentList=appObject.getAvailableSmList()
+    inputList=results.addList[:]
+    
+    for i in results.addList:
+        
+        if i in currentList:
+            print "'%s' already in social Media List" %(i)
+            inputList.remove(i)
+    
+    if appObject.addSm(inputList):
+        print '\n'
+        for i in inputList:
+            print "Adding '%s' to Social Media list" %(i)
+
+
+    print  '\nAvailable Social Media'
+    print  20*'*'
+    for i in appObject.getAvailableSmList():
+        print i
+    
+
+
+if results.rmList:
+    if appObject.removeSm(results.rmList):
+        for i in results.rmList:
+            print "Removing '%s' from Social Media list" %(i)
+    print  'Available Social Media'+ appObject.getAvailableSmList()
+    
 
 
 

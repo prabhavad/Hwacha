@@ -8,7 +8,7 @@ class socialMediaController(object): # concrete class
         smList=self.displaySm()
         for i in addList:
             smList.append(i)
-
+       
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
