@@ -1,5 +1,6 @@
 # App controller layer
 from socialMediaControl import socialMediaControl
+from broadcast import broadcast
 
 class appController(object): # concrete class
 
@@ -77,3 +78,17 @@ class appController(object): # concrete class
             return smList
         except:
             return []
+
+    def broadcaster(self,message,smList,key):
+        try:
+            retValue = broadcast.broadcastmessage(message,smList,key)
+        except:
+            retValue = "Failed"
+        return retValue
+
+    def getKey(self,raw_input):
+        try:
+            key = raw_input()
+            return key
+        except:
+            return "Failed"
