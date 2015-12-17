@@ -28,6 +28,7 @@ class hwachaForm(QtGui.QDialog):
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
         self.lineEdit2 = QtGui.QLineEdit(self.defaultSmName)
+        self.browser2 = QtGui.QTextBrowser()
 
         layout = QtGui.QVBoxLayout()
 
@@ -35,7 +36,9 @@ class hwachaForm(QtGui.QDialog):
         layout.addWidget(self.browser)
         layout.addWidget(self.lineEdit)
         layout.addWidget(self.smComboBox)
-        layout.addWidget(self.lineEdit2)
+        layout.addWidget(self.browser2)
+        # lineEdit2 is purposefully removed from layout
+        #layout.addWidget(self.lineEdit2)
         layout.addWidget(self.button)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
@@ -48,10 +51,32 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), self.updateUi)
         # To signal the click over the button
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.cleanBrowser2)
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
+        self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmBrowser)
+        self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmList)
 
         self.setWindowTitle("Hwacha")
+
+    def updateSmList(self):
+        pass
+
+    def cleanBrowser2(self):
+        #self.browser2.write("<font color=yellow>Hwacha</font>")
+        self.browser2.clear()
+
+    def updateSmBrowser(self):
+        #self.browser2.append("<font color=yellow>=)Hwacha=)</font>")
+        try:
+            smName = unicode(self.lineEdit2.text())
+            if smName != self.defaultSmName:
+                self.browser2.append("<b>%s,</b>" % (smName))
+            else:
+                raise ValueError('Social Media cannot be added')
+        except:
+            self.browser2.append("<font color=red>Error</font>")
+        #self.browser2.append("<font color=yellow>(=Hwacha(=</font>")
 
     def updateUi(self):
         self.browser.append("<font color=yellow>=)Hwacha=)</font>")
