@@ -66,8 +66,9 @@ class hwachaForm(QtGui.QDialog):
         self.setWindowTitle("Hwacha")
 
     def getKey(self):
-        appObject = appControl.appController()
-        retValue = appObject.getKey(lambda: self.key)
+        #appObject = appControl.appController()
+        #retValue = appObject.getKey(lambda: self.key)
+        pass
 
     def makeKey(self):
         pass

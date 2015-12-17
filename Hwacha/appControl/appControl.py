@@ -99,20 +99,9 @@ class appController(object): # concrete class
     def broadcastMessage(self,message,smList):
         key=key_file.key
         try:
-            bcstatus = broadcast.broadcastmessage(message,smList,key)
-            return bcstatus
+            broadcastStatus = broadcast.broadcastmessage(message,smList,key)
+            return broadcastStatus
         except:
-            return False
-    def broadcaster(self,message,smList,key):
-        try:
-            retValue = broadcast.broadcastmessage(message,smList,key)
-        except:
-            retValue = "Failed"
-        return retValue
+            # return empty list is adding as a convension for failure. Reason for making [] as convension is broadcastStatus will always be a list
+            return []
 
-    def getKey(self,raw_input):
-        try:
-            key = raw_input()
-            return key
-        except:
-            return "Failed"
