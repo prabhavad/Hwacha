@@ -4,9 +4,11 @@ import json
 
 class socialMediaController(object): # concrete class
    
-    def addSm(self,smName):
+    def addSm(self,addList):
         smList=self.displaySm()
-        smList.append(smName)
+        for i in addList:
+            smList.append(i)
+
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
@@ -14,16 +16,29 @@ class socialMediaController(object): # concrete class
         except: 
             return False
     
-    def rmSm(self,smName):
+    def rmSm(self,rmList):
         smList=self.displaySm()
         try:
-            smList.remove(smName)
+            for i in rmList:
+                smList.remove(i)
+
+
             with open('smName.txt','w') as outfile:
                 json.dump(smList,outfile)
             return True    
         except:
             return False
         
+    def dropSm(self,rmList):
+        data=[]
+        try:
+            with open('smName.txt','w') as outfile:
+                json.dump(data,outfile)
+            return True    
+        except:
+            return False
+
+
 
     def displaySm(self):
        try:
