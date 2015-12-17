@@ -43,9 +43,9 @@ class appController(object): # concrete class
             return "Failed"
 
     def getRmList(self, raw_input):
-        # This is temporary, remove this line before using
-        rmList = ["fb","mail"]
-        # Remove above line before using as an API
+       
+        rmList = []
+        
         try:
             rmList.remove(raw_input())
             return rmList
