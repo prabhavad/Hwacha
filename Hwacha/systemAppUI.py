@@ -15,6 +15,7 @@ class hwachaForm(QtGui.QDialog):
         self.send = "Send"
         self.emptySm = "None"
         self.defaultSmName = "Choose Social Media Name"
+        self.requiredSmList = []
 
         self.browser = QtGui.QTextBrowser()
         self.lineEdit = QtGui.QLineEdit(self.defaultMessage)
@@ -52,6 +53,8 @@ class hwachaForm(QtGui.QDialog):
         # To signal the click over the button
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.cleanBrowser2)
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.resetRequiredSmList)
+
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmBrowser)
@@ -59,19 +62,26 @@ class hwachaForm(QtGui.QDialog):
 
         self.setWindowTitle("Hwacha")
 
+    def resetRequiredSmList(self):
+        self.requiredSmList = []
+
     def updateSmList(self):
-        pass
+        smName = unicode(self.lineEdit2.text())
+        if smName not in self.requiredSmList:
+            self.requiredSmList.append(smName)
 
     def cleanBrowser2(self):
-        #self.browser2.write("<font color=yellow>Hwacha</font>")
         self.browser2.clear()
 
     def updateSmBrowser(self):
         #self.browser2.append("<font color=yellow>=)Hwacha=)</font>")
         try:
             smName = unicode(self.lineEdit2.text())
-            if smName != self.defaultSmName:
-                self.browser2.append("<b>%s,</b>" % (smName))
+            if smName != self.defaultSmName and smName != self.emptySm:
+                if smName not in self.requiredSmList:
+                    self.browser2.append("<b>%s,</b>" % (smName))
+                else:
+                    self.browser2.append("<font color=Red>Already selected</font>")
             else:
                 raise ValueError('Social Media cannot be added')
         except:
