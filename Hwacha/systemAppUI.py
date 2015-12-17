@@ -69,6 +69,9 @@ class hwachaForm(QtGui.QDialog):
         appObject = appControl.appController()
         retValue = appObject.getKey(lambda: self.key)
 
+    def makeKey(self):
+        pass
+
     def broadcast(self):
         pass
 
