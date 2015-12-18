@@ -13,3 +13,8 @@ Hwacha is under major development. You are welcome to post issues.
 ### How to Install Hwacha
 
 python setup.py install 
+
+### How to execute Hwacha
+
+python ui.py --help
+
