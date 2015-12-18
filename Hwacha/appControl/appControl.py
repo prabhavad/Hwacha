@@ -102,6 +102,6 @@ class appController(object): # concrete class
             broadcastStatus = broadcast.broadcastmessage(message,smList,key)
             return broadcastStatus
         except:
-            # return empty list is adding as a convension for failure. Reason for making [] as convension is broadcastStatus will always be a list
-            return []
+            # return empty Dict is adding as a convension for failure. Reason for making  as convension is broadcastStatus will always be a list
+            return {}
 
