@@ -1,6 +1,6 @@
 # Social media controller layer
 
-import json
+import json,os
 
 class socialMediaController(object): # concrete class
    
@@ -10,7 +10,7 @@ class socialMediaController(object): # concrete class
             smList.append(i)
        
         try:
-            with open('smName.txt','w') as outfile:
+            with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(smList,outfile)
             return True
         except: 
@@ -23,7 +23,7 @@ class socialMediaController(object): # concrete class
                 smList.remove(i)
 
 
-            with open('smName.txt','w') as outfile:
+            with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(smList,outfile)
             return True    
         except:
@@ -32,7 +32,7 @@ class socialMediaController(object): # concrete class
     def dropSm(self,rmList):
         data=[]
         try:
-            with open('smName.txt','w') as outfile:
+            with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(data,outfile)
             return True    
         except:
@@ -42,7 +42,7 @@ class socialMediaController(object): # concrete class
 
     def displaySm(self):
        try:
-           with open('smName.txt')as infile:
+           with open('./appControl/socialMediaControl/smName.txt')as infile:
                return json.load(infile)
        except:
            return []
@@ -53,7 +53,7 @@ class socialMediaController(object): # concrete class
 
     def isSmAvailable(self,smedia):
         try:
-            with open('smName.txt') as infile:
+            with open('./appControl/socialMediaControl/smName.txt') as infile:
                 if (smedia in self.displaySm()):
                     return True
                 else:
