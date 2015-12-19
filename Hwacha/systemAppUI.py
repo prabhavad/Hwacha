@@ -13,6 +13,7 @@ class hwachaForm(QtGui.QDialog):
         # Some data abstractions
         self.defaultMessage = "Message"
         self.send = "Send"
+        self.clear = "Clear screen"
         self.emptySm = "None"
         self.defaultSmName = "Choose Social Media Name"
         self.requiredSmList = []
@@ -25,12 +26,14 @@ class hwachaForm(QtGui.QDialog):
         self.button = QtGui.QPushButton(self.send)
         self.smComboBox = QtGui.QComboBox()
         self.smComboBox.addItem(self.emptySm)
+        self.clearButton = QtGui.QPushButton(self.clear)
 
         #create app object
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
         self.lineEdit2 = QtGui.QLineEdit(self.defaultSmName)
-        self.browser2 = QtGui.QTextBrowser()
+        #self.browser2 = QtGui.QTextBrowser()
+        
 
         layout = QtGui.QVBoxLayout()
 
@@ -38,10 +41,11 @@ class hwachaForm(QtGui.QDialog):
         layout.addWidget(self.browser)
         layout.addWidget(self.lineEdit)
         layout.addWidget(self.smComboBox)
-        layout.addWidget(self.browser2)
+        #layout.addWidget(self.browser2)
         # lineEdit2 is purposefully removed from layout
         #layout.addWidget(self.lineEdit2)
         layout.addWidget(self.button)
+        layout.addWidget(self.clearButton)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
         self.setLayout(layout)
@@ -53,10 +57,11 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), self.updateUi)
         # To signal the click over the button
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
-        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.cleanBrowser2)
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.resetRequiredSmList)
-        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.getKey)
-        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.broadcast)
+        #self.connect(self.button, QtCore.SIGNAL("clicked()"), self.getKey)
+        #self.connect(self.button, QtCore.SIGNAL("clicked()"), self.broadcast)
+
+        self.connect(self.clearButton, QtCore.SIGNAL("clicked()"), self.cleanBrowser)
 
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
@@ -84,8 +89,8 @@ class hwachaForm(QtGui.QDialog):
         if smName not in self.requiredSmList:
             self.requiredSmList.append(smName)
 
-    def cleanBrowser2(self):
-        self.browser2.clear()
+    def cleanBrowser(self):
+        self.browser.clear()
 
     def updateSmBrowser(self):
         #self.browser2.append("<font color=yellow>=)Hwacha=)</font>")
@@ -93,13 +98,13 @@ class hwachaForm(QtGui.QDialog):
             smName = unicode(self.lineEdit2.text())
             if smName != self.defaultSmName and smName != self.emptySm:
                 if smName not in self.requiredSmList:
-                    self.browser2.append("<b>%s,</b>" % (smName))
+                    self.browser.append("<b>%s,</b>" % (smName))
                 else:
-                    self.browser2.append("<font color=Red>Already selected</font>")
+                    self.browser.append("<font color=Red>Already selected</font>")
             else:
                 raise ValueError('Social Media cannot be added')
         except:
-            self.browser2.append("<font color=red>Error</font>")
+            self.browser.append("<font color=red>Choose a social media</font>")
         #self.browser2.append("<font color=yellow>(=Hwacha(=</font>")
 
     def updateUi(self):
@@ -113,7 +118,7 @@ class hwachaForm(QtGui.QDialog):
             retValue2 = appObject.getSmName(lambda: smName)
             if retValue == text: 
                 if retValue2 == smName:
-                    if retValue2 != self.defaultSmName: 
+                    if retValue2 != self.defaultSmName and retValue2 != self.emptySm: 
                         self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
                     else:
                         self.browser.append("<font color=red>Social Media not choosen</font>")
