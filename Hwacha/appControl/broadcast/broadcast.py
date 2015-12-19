@@ -1,6 +1,10 @@
 import tweepy
 import smtplib
 
+class BroadcastError(exceptions):
+    pass
+
+
 class Broadcast(object): #Abstract class 
     
     def authentication():
@@ -31,8 +35,8 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
            try:
                api.update_status(status=message)
            except tweepy.TweepError as e:
-
-               return  e[0][0]['code']
+               raise BroadcastError(e[0][0]['message'])
+               
 
             
 
