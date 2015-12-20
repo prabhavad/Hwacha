@@ -1,6 +1,9 @@
 import tweepy
 import smtplib
 
+class AuthenticationError(Exception):
+    pass
+
 class Broadcast(object): #Abstract class 
     
     def authentication():
@@ -50,10 +53,10 @@ class mailBroadcast(Broadcast): # mail concrete class
         server.ehlo()
         server.starttls()
         server.ehlo()
-        auth = server.login(self.gmailSender, self.gmailPass)
-        if auth:
+        try:
+            auth = server.login(self.gmailSender, self.gmailPass)
             return "success"
-        else:
+        except AuthenticationError as excptn:
             return "failure"
 
     def push(self,message,server) :

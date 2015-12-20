@@ -62,6 +62,17 @@ def test_mailBroadcast():
     assert retPushValue == "success"
     assert mock_server.ehlo.called
     assert mock_server.starttls.called
+
+def test_mailBroadcast_auth_failure():
+    mock_server = Mock()
+    mock_subject = Mock()
+    mock_to = Mock()
+    mock_sender = Mock()
+    mock_pass = Mock()
+    mailObject = broadcast.mailBroadcast(mock_subject, mock_to, mock_sender, mock_pass)
+    retAuthValue =o mailObject.authentication(mock_server)
+    #with pytest.raises(broadcast.AuthenticationError):
+     #   assert retAuthValue == "failure"
 	
     
 def test_authentication():
