@@ -70,16 +70,13 @@ class hwachaForm(QtGui.QDialog):
 
         self.setWindowTitle("Hwacha")
 
-    def getKey(self):
-        #appObject = appControl.appController()
-        #retValue = appObject.getKey(lambda: self.key)
-        pass
-
-    def makeKey(self):
-        pass
-
     def broadcast(self):
-        pass
+        message = unicode(self.lineEdit.text())
+        appObject = appControl.appController()
+        try:
+            retValue = appObject.broadcastMessage(message,self.requiredSmList)
+        except:
+            retValue = "Failed"
 
     def resetRequiredSmList(self):
         self.requiredSmList = []

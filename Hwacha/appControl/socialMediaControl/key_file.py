@@ -9,7 +9,7 @@ key ={
            'access_token':'4472517314-QveTAuRwPQ0JKnBTkVobZZTG3KusZm8fFBUSXKw',
            'access_token_secret':'XItUgPH1VCP027HufEewBqdO45dCEz4Ga4IwqOmgo2brN'},
 'mail':{'subject':'Test Subject', 
-        'to':'userHwacha@gmail.com',
-        'consumer_key':'senderHwacha@gmail.com', 
-        'consumer_secret':'wrongPass123'}
+        'to':'simsarulhaqv@gmail.com',
+        'consumer_key':'simsar012smtp@gmail.com', 
+        'consumer_secret':'newPass295'}
      }

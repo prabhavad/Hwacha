@@ -1,9 +1,15 @@
 import tweepy
 import smtplib
 
-class BroadcastError(exceptions):
-    pass
+class BroadcastError(Exception):
+    def __init__(self,message,code):
+        self.message = message
+        self.code = code
 
+
+
+class AuthenticationError(Exception):
+    pass
 
 class Broadcast(object): #Abstract class 
     
@@ -35,7 +41,7 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
            try:
                api.update_status(status=message)
            except tweepy.TweepError as e:
-               raise BroadcastError(e[0][0]['message'])
+               raise BroadcastError(e[0][0]['message'],e[0][0]['code'])
                
 
             
@@ -54,10 +60,10 @@ class mailBroadcast(Broadcast): # mail concrete class
         server.ehlo()
         server.starttls()
         server.ehlo()
-        auth = server.login(self.gmailSender, self.gmailPass)
-        if auth:
+        try:
+            auth = server.login(self.gmailSender, self.gmailPass)
             return "success"
-        else:
+        except AuthenticationError as excptn:
             return "failure"
 
     def push(self,message,server) :
