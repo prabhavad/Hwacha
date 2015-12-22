@@ -18,9 +18,43 @@ import tweepy
 #     error_code = None
 #     message='Hello Hwacha'+str(random.random()) # random message
 #     push = broadcast.broadcastmessage(message,soc_media,key) 
-#     assert push['twitter'] == error_code
+#     assert  push['twitter'] == error_code
+
+def test_twitter_broadcast():
+      mock_update_status = mock.Mock()
+      mock_authenticate = mock.Mock()
+      api = mock.Mock()
+      mock_authenticate.return_value = api
+      original_update = api.update_status
+      api.update_status = mock_update_status
+
+      t = broadcast.TwitterBroadcast("test_consumer_key", 
+                "test_consumer_secret", 
+                "test_access_token",
+                "test_access_token_secret")
+
+      ret = t.push(api,'testing')
+      api.update_status.assert_called_with(status='testing')
+      
+      api.update_status = api.update_status
 
 
+def test_twitter_broadcast_false():
+      mock_update_status = mock.Mock()
+      mock_authenticate = mock.Mock()
+      api = mock.Mock()
+      mock_authenticate.return_value = api
+      original_update = api.update_status
+      api.update_status = mock_update_status
+
+      t = broadcast.TwitterBroadcast("test_consumer_key", 
+                "test_consumer_secret", 
+                "test_access_token",
+                "test_access_token_secret")
+
+      ret = t.push(api,'testing')
+      with pytest.raises(broadcast.BroadcastError()):
+          api.update_status.assert_called_with('Bad Format')      
 
 
 

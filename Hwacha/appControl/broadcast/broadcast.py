@@ -2,11 +2,7 @@ import tweepy
 import smtplib
 
 class BroadcastError(Exception):
-    def __init__(self,message,code):
-        self.message = message
-        self.code = code
-
-
+    pass
 
 class AuthenticationError(Exception):
     pass
@@ -41,8 +37,8 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
            try:
                api.update_status(status=message)
            except tweepy.TweepError as e:
-               raise BroadcastError(e[0][0]['message'],e[0][0]['code'])
-               
+        #       raise BroadcastError(e[0][0]['message'],e[0][0]['code'])
+               raise BroadcastError()               
 
             
 
@@ -63,7 +59,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         try:
             auth = server.login(self.gmailSender, self.gmailPass)
             return "success"
-        except AuthenticationError as excptn:
+        except AuthenticationError as excptn: 
             return "failure"
 
     def push(self,message,server) :
