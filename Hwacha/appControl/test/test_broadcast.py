@@ -7,19 +7,8 @@ import random
 import mock
 from mock import Mock
 import tweepy
-
-# def test_broadcst():
-#     key={'twitter':{'consumer_key':'igjX6vqB8HtMzPByguX9KUtqv',
-#      'consumer_secret': 'R8pyvLiKSDDTjyf84DnKVgM4IQLYTXq9fDdCbsq3vCEzXkC7qz',
-#      'access_token': '4472517314-QveTAuRwPQ0JKnBTkVobZZTG3KusZm8fFBUSXKw',
-#      'access_token_secret':'XItUgPH1VCP027HufEewBqdO45dCEz4Ga4IwqOmgo2brN',
-#       }}
-#     soc_media= ['twitter']
-#     error_code = None
-#     message='Hello Hwacha'+str(random.random()) # random message
-#     push = broadcast.broadcastmessage(message,soc_media,key) 
-#     assert  push['twitter'] == error_code
-
+import smtplib
+    
 def test_twitter_broadcast():
       mock_update_status = mock.Mock()
       mock_authenticate = mock.Mock()
@@ -179,3 +168,31 @@ def test_authentication():
 
 
 
+# #def test_broadcastmessage():
+#       statusMessage = {}
+#       mock_mail_status = mock.Mock()
+#       mock_twitter_status = mock.Mock()
+#       mock_key = mock.Mock()
+#       statusMessage['mail'] = mock_mail_status
+#       statusMessage['twitter'] = mock_twitter_status
+#       mock_server = mock.Mock()
+#       mock_twitter = mock.Mock()
+#       mock_mail = mock.Mock()
+#       mock_gmail_key = mock.Mock()
+#       mock_server.return_value = mock_gmail_key
+
+#       original_server = smtplib.SMTP
+#       smtplib.SMTP =  mock_server
+#       original_mail =  broadcast.init_mail
+#       init_mail = mock_mail
+#       original_twitter = broadcast.init_twitter
+#       init_twitter = mock_twitter
+      
+#       return_status = broadcast.broadcastmessage('test_message',['mail'],mock_key)
+#       smtplib.SMTP.assert_called_with('smtp.gmail.com',587)
+#       #init_mail.assert_called_with('test_message',mock_gmail_key,mock_key)
+      
+
+      
+      
+      

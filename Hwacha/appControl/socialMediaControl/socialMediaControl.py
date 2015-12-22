@@ -2,6 +2,12 @@
 
 import json,os
 
+
+class SocialMediaError(Exception):
+    def __init__(self,message):
+        self.message = message
+    
+
 class socialMediaController(object): # concrete class
    
     def addSm(self,addList):
@@ -12,9 +18,8 @@ class socialMediaController(object): # concrete class
         try:
             with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(smList,outfile)
-            return True
         except: 
-            return False
+            raise SocialMediaError()
     
     def rmSm(self,rmList):
         smList=self.displaySm()
@@ -25,19 +30,16 @@ class socialMediaController(object): # concrete class
 
             with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(smList,outfile)
-            return True    
         except:
-            return False
-        
+           raise SocialMediaError()
+   
     def dropSm(self,rmList):
         data=[]
         try:
             with open('./appControl/socialMediaControl/smName.txt','w') as outfile:
                 json.dump(data,outfile)
-            return True    
         except:
-            return False
-
+            raise SocialMediaError()
 
 
     def displaySm(self):
@@ -59,6 +61,6 @@ class socialMediaController(object): # concrete class
                 else:
                     return False
         except:
-            return False
+            raise SocialMediaError()
 
 

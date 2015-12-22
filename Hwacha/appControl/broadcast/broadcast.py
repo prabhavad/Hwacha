@@ -59,7 +59,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         try:
             auth = server.login(self.gmailSender, self.gmailPass)
             return "success"
-        except AuthenticationError as excptn: 
+        except AuthenticationError as excptn:
             return "failure"
 
     def push(self,message,server) :
