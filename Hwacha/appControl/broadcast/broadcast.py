@@ -85,8 +85,10 @@ class mailBroadcast(Broadcast): # mail concrete class
 
 class WordpressBroadcast(Broadcast): #concrete class for Wordpress
     
-        def __init__(self):
-            
+        def __init__(self,blog_id,u_name,p_wd):
+            self.blog_id = blog_id
+            self.u_name  = u_name
+            self.p_wd    = p_wd
             
         def authentication(self):
             
