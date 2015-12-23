@@ -83,6 +83,17 @@ class mailBroadcast(Broadcast): # mail concrete class
                 print exptn
                 return "Error: unable to send email"
 
+class WordpressBroadcast(Broadcast): #concrete class for Wordpress
+    
+        def __init__(self):
+            
+            
+        def authentication(self):
+            
+
+        def push(self):
+                    
+
         
 			
 
