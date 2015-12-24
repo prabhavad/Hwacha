@@ -91,11 +91,12 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
             self.blog_id = blog_id
             self.wpUserName = wpUserName
             self.PassWord = wpPassWord
+    
             
         def authentication(self):
             
 
-        def push(self,client):
+        def push(self,BlogTitle, BlogContent):
 
             Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
             post = WordPressPost()
@@ -104,15 +105,6 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
             post.post_status = 'publish'
             post_id = client.call(posts.NewPost(post))
             print 'Post Successfully posted. Id is: ', post_id
-         
-   
-
-            
-            
-            
-                    
-
-        
 			
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
@@ -151,13 +143,18 @@ def init_mail(message,server,key): # mail initialisation
             return "Authentication failed"
         
 def init_wordpress(message, post_id):
-    
-    wp = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
+
+    client = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
+        
     post.title = 'My post'
     post.Content = ' This is blog post about the wordpress '
+    post.post_status = 'publish'
     post_id =  client.call(posts.NewPost(post))
-    
    
+    
+    
+    
+        
     
     
 
