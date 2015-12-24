@@ -1,7 +1,8 @@
 import tweepy
 import smtplib
 from wordpress_xmlrpc import WordPressPost, Client
-
+from wordpress_xmlrpc.methods import posts
+import xmlrpclib
 
 class BroadcastError(Exception):
     pass
@@ -94,7 +95,12 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
     
             
         def authentication(self):
-            
+            try:
+                auth = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+                return "success"
+            except AuthenticationError as excptn:
+                return "Failure"
+                
 
         def push(self,BlogTitle, BlogContent):
 
@@ -142,7 +148,7 @@ def init_mail(message,server,key): # mail initialisation
         except:
             return "Authentication failed"
         
-def init_wordpress(message, post_id):
+def init_wordpress(self, post):
 
     client = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
         
@@ -151,13 +157,6 @@ def init_wordpress(message, post_id):
     post.post_status = 'publish'
     post_id =  client.call(posts.NewPost(post))
    
-    
-    
-    
-        
-    
-    
-
 
 
 def broadcastmessage(message,smList,key):
