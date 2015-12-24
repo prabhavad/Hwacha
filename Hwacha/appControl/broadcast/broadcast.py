@@ -94,24 +94,28 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
             self.PassWord = wpPassWord
     
             
-        def authentication(self):
+        def authentication(self): # authentication for the wordpress
             try:
                 auth = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
                 return "success"
+            
             except AuthenticationError as excptn:
                 return "Failure"
                 
 
         def push(self,BlogTitle, BlogContent):
-
-            Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+            
             post = WordPressPost()
             post.title = 'BlogTitle'
             post.content = 'BlogContent'
-            post.post_status = 'publish'
-            post_id = client.call(posts.NewPost(post))
-            print 'Post Successfully posted. Id is: ', post_id
-			
+            try:
+                Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+                post.post_status = 'publish'
+                post_id = client.call(posts.NewPost(post))
+                print 'Post Successfully posted. Id is: ', post_id
+            except Exception as exptn:
+                print exptn
+                return "Error : unable to publish the blog"
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
     
