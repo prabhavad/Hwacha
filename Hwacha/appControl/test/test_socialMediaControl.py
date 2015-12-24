@@ -16,13 +16,15 @@ def test_addSm():
 
 def test_rmSm():
     smObject = socialMediaControl.socialMediaController()
+    retValue = smObject.addSm('facebook')
     retValue = smObject.rmSm('facebook')
     assert retValue == True
 
 def test_rmSm2():
     smObject = socialMediaControl.socialMediaController()
-    retValue = smObject.rmSm('NotInSmListName')
-    assert retValue == False
+    with pytest.raises(socialMediaControl.SocialMediaError):
+        retValue = smObject.rmSm('NotInSmListName')
+   
 
 def test_isSmAvailable():    
     smObject = socialMediaControl.socialMediaController()
