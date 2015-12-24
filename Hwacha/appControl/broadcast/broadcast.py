@@ -1,5 +1,6 @@
 import tweepy
 import smtplib
+from wordpress_xmlrpc import WordPressPost
 
 class BroadcastError(Exception):
     pass
@@ -94,6 +95,15 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
             
 
         def push(self):
+            
+            post = WordPressPost()
+            post.title = 'My post'
+            post.content = "This is a wonderful blog post about xml_rpc"
+            post.id = client.call(posts.NewPost(post))
+
+            
+            
+            
                     
 
         
