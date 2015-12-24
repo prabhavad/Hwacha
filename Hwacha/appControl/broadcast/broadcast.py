@@ -99,9 +99,9 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
 
             wp = Client('http://mysite.wordpress.com/xmlrpc.php', 'self.u_name', 'self.p_wd')
             post = WordPressPost()
-            post.title = 'My post'
-            post.content = "This is a wonderful blog post about xml_rpc"
-            post.id = client.call(posts.NewPost(post))
+            post.title = 'Title'
+            post.content = "Content"
+            post_id = client.call(posts.NewPost(post))
 
             
             
@@ -145,6 +145,16 @@ def init_mail(message,server,key): # mail initialisation
             return sendMailStatus
         except:
             return "Authentication failed"
+def init_wordpress(message, post_id):
+    wp = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
+    post.title = 'My post'
+    post.Content = ' This is blog post about the wordpress '
+    post_id =  client.call(posts.NewPost(post))
+    
+
+    
+    
+    
 
 
 
