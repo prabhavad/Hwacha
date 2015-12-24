@@ -2,20 +2,31 @@
 
 import json,os
 
+
+class SocialMediaError(Exception):
+    pass
+
 class socialMediaController(object): # concrete class
    
     def addSm(self,addList):
         smList=self.displaySm()
         for i in addList:
             smList.append(i)
-       
+        
         try:
-            with open('smName.txt','w') as outfile:
-                json.dump(smList,outfile)
-            return True
-        except Exception as excpt:
-            print excpt
-            return False
+            default_file = './appControl/socialMediaControl/smName.txt'
+            if os.path.isfile(default_file):
+                with open(default_file,'w') as outfile:
+                        json.dump(smList,outfile)
+                        return True
+            else:
+                with open('smName.txt','w') as outfile:
+                        json.dump(smList,outfile)
+                        return True
+
+        except: 
+            raise SocialMediaError()
+
     
     def rmSm(self,rmList):
         smList=self.displaySm()
@@ -23,30 +34,48 @@ class socialMediaController(object): # concrete class
             for i in rmList:
                 smList.remove(i)
 
+            default_file = './appControl/socialMediaControl/smName.txt'    
+            if os.path.isfile(default_file):
+                with open(default_file,'w') as outfile:
+                        json.dump(smList,outfile)
+                        return True
+            else:
+                with open('smName.txt','w') as outfile:
+                        json.dump(smList,outfile)
+                        return True
 
-            with open('smName.txt','w') as outfile:
-                json.dump(smList,outfile)
-            return True    
-        except:
-            return False
-        
+        except: 
+            raise SocialMediaError()
+       
+
     def dropSm(self,rmList):
         data=[]
         try:
             with open('smName.txt','w') as outfile:
                 json.dump(data,outfile)
-            return True    
+            return True 
         except:
-            return False
+            raise SocialMediaError()
 
 
 
     def displaySm(self):
-       try:
-           with open('smName.txt')as infile:
-               return json.load(infile)
-       except:
+
+        default_file = './appControl/socialMediaControl/smName.txt'
+        try:
+            if os.path.isfile(default_file):
+                with open('./appControl/socialMediaControl/smName.txt')as infile:
+                   return json.load(infile)
+            else:
+                with open('smName.txt')as infile:
+                   return json.load(infile)
+
+        except:
            return []
+
+    
+
+
 
     def countSm(self):
         """ countSm() returns the number of social medias inside social media controller"""
@@ -54,12 +83,11 @@ class socialMediaController(object): # concrete class
 
     def isSmAvailable(self,smedia):
         try:
-            with open('smName.txt') as infile:
-                if (smedia in self.displaySm()):
-                    return True
-                else:
-                    return False
+            if (smedia in self.displaySm()):
+                return True
+            else:
+                return False
         except:
-            return False
+            raise SocialMediaError()
 
 

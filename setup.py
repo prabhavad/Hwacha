@@ -8,6 +8,6 @@ setup( name ='Hwacha',
        author_email='Hwacha_11@gmail.com',
        license='BSD',
        packages=['Hwacha'],
-       install_requires=['tweepy','pytest','mock'],
+       install_requires=['tweepy','pytest','mock','python-wordpress-xmlrpc'],
        zip_safe=False
        )

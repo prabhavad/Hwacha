@@ -62,7 +62,7 @@ class mailBroadcast(Broadcast): # mail concrete class
         try:
             auth = server.login(self.gmailSender, self.gmailPass)
             return "success"
-        except AuthenticationError as excptn: 
+        except AuthenticationError as excptn:
             return "failure"
 
     def push(self,message,server) :
@@ -94,24 +94,28 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
             self.PassWord = wpPassWord
     
             
-        def authentication(self):
+        def authentication(self): # authentication for the wordpress
             try:
                 auth = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
                 return "success"
+            
             except AuthenticationError as excptn:
                 return "Failure"
                 
 
         def push(self,BlogTitle, BlogContent):
-
-            Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+            
             post = WordPressPost()
             post.title = 'BlogTitle'
             post.content = 'BlogContent'
-            post.post_status = 'publish'
-            post_id = client.call(posts.NewPost(post))
-            print 'Post Successfully posted. Id is: ', post_id
-			
+            try:
+                Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+                post.post_status = 'publish'
+                post_id = client.call(posts.NewPost(post))
+                print 'Post Successfully posted. Id is: ', post_id
+            except Exception as exptn:
+                print exptn
+                return "Error : unable to publish the blog"
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
     
@@ -148,16 +152,14 @@ def init_mail(message,server,key): # mail initialisation
         except:
             return "Authentication failed"
         
-def init_wordpress(self, post):
-
-    client = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
-        
-    post.title = 'My post'
-    post.Content = ' This is blog post about the wordpress '
-    post.post_status = 'publish'
-    post_id =  client.call(posts.NewPost(post))
-   
-
+def init_wordpress(self, BlogTitle, BlogContent, key):
+    Blog_id = key ['http://mysite.wordpress.com/xmlrpc.php']
+    UserName = key['wpUserName']
+    PassWord = key['wpPassWord']
+    
+    client = Client('Blog_id', 'UserName', 'PassWord')
+    Blog_status = client.push(BlogTitle, BlogContent)
+    return Blog_status
 
 def broadcastmessage(message,smList,key):
     statusMessage={}
@@ -169,6 +171,10 @@ def broadcastmessage(message,smList,key):
         
         elif sm == 'twitter':
             status = init_twitter(message,key[sm])
+            statusMessage[sm] = status
+            
+        elif sm == 'Wordpress':
+            status = init_wordpress(BlogTitle, BlogContent, key[sm])
             statusMessage[sm] = status
     
     return statusMessage
