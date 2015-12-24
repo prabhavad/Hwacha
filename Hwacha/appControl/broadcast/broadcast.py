@@ -159,6 +159,7 @@ def init_wordpress(self, BlogTitle, BlogContent, key):
     
     client = Client('Blog_id', 'UserName', 'PassWord')
     Blog_status = client.push(BlogTitle, BlogContent)
+    return Blog_status
 
 def broadcastmessage(message,smList,key):
     statusMessage={}
@@ -170,6 +171,10 @@ def broadcastmessage(message,smList,key):
         
         elif sm == 'twitter':
             status = init_twitter(message,key[sm])
+            statusMessage[sm] = status
+            
+        elif sm == 'Wordpress':
+            status = init_wordpress(BlogTitle, BlogContent, key[sm])
             statusMessage[sm] = status
     
     return statusMessage
