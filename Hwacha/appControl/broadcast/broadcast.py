@@ -1,5 +1,8 @@
 import tweepy
 import smtplib
+from wordpress_xmlrpc import WordPressPost, Client
+from wordpress_xmlrpc.methods import posts
+import xmlrpclib
 
 class BroadcastError(Exception):
     pass
@@ -83,7 +86,31 @@ class mailBroadcast(Broadcast): # mail concrete class
                 print exptn
                 return "Error: unable to send email"
 
-        
+class WordpressBroadcast(Broadcast): #concrete class for Wordpress
+    
+        def __init__(self,blog_id, wpUserName,wpPassWord):
+            self.blog_id = blog_id
+            self.wpUserName = wpUserName
+            self.PassWord = wpPassWord
+    
+            
+        def authentication(self):
+            try:
+                auth = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+                return "success"
+            except AuthenticationError as excptn:
+                return "Failure"
+                
+
+        def push(self,BlogTitle, BlogContent):
+
+            Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
+            post = WordPressPost()
+            post.title = 'BlogTitle'
+            post.content = 'BlogContent'
+            post.post_status = 'publish'
+            post_id = client.call(posts.NewPost(post))
+            print 'Post Successfully posted. Id is: ', post_id
 			
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
@@ -120,7 +147,16 @@ def init_mail(message,server,key): # mail initialisation
             return sendMailStatus
         except:
             return "Authentication failed"
+        
+def init_wordpress(self, post):
 
+    client = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
+        
+    post.title = 'My post'
+    post.Content = ' This is blog post about the wordpress '
+    post.post_status = 'publish'
+    post_id =  client.call(posts.NewPost(post))
+   
 
 
 def broadcastmessage(message,smList,key):
