@@ -87,21 +87,25 @@ class mailBroadcast(Broadcast): # mail concrete class
 
 class WordpressBroadcast(Broadcast): #concrete class for Wordpress
     
-        def __init__(self,blog_id,u_name,p_wd):
+        def __init__(self,blog_id, wpUserName,wpPassWord):
             self.blog_id = blog_id
-            self.u_name  = u_name
-            self.p_wd    = p_wd
+            self.wpUserName = wpUserName
+            self.PassWord = wpPassWord
             
         def authentication(self):
             
 
-        def push(self):
+        def push(self,client):
 
-            wp = Client('http://mysite.wordpress.com/xmlrpc.php', 'self.u_name', 'self.p_wd')
+            Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
             post = WordPressPost()
-            post.title = 'Title'
-            post.content = "Content"
+            post.title = 'BlogTitle'
+            post.content = 'BlogContent'
+            post.post_status = 'publish'
             post_id = client.call(posts.NewPost(post))
+            print 'Post Successfully posted. Id is: ', post_id
+         
+   
 
             
             
@@ -145,14 +149,15 @@ def init_mail(message,server,key): # mail initialisation
             return sendMailStatus
         except:
             return "Authentication failed"
+        
 def init_wordpress(message, post_id):
+    
     wp = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
     post.title = 'My post'
     post.Content = ' This is blog post about the wordpress '
     post_id =  client.call(posts.NewPost(post))
     
-
-    
+   
     
     
 
