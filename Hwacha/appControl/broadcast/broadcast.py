@@ -152,16 +152,13 @@ def init_mail(message,server,key): # mail initialisation
         except:
             return "Authentication failed"
         
-def init_wordpress(self, post):
-
-    client = Client("http://mysite.wordpress.com/xmlrpc.php', 'username', 'password'")
-        
-    post.title = 'My post'
-    post.Content = ' This is blog post about the wordpress '
-    post.post_status = 'publish'
-    post_id =  client.call(posts.NewPost(post))
-   
-
+def init_wordpress(self, BlogTitle, BlogContent, key):
+    
+    UserName = key['wpUserName']
+    PassWord = key['wpPassWord']
+    
+    client = Client('http://mysite.wordpress.com/xmlrpc.php', 'UserName', 'PassWord')
+    Blog_status = client.push(BlogTitle, BlogContent)
 
 def broadcastmessage(message,smList,key):
     statusMessage={}
