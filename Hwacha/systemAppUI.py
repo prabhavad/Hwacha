@@ -60,11 +60,14 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), self.updateUi)
 
         # To signal the click over the button
-        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
+        #self.connect(self.button, QtCore.SIGNAL("clicked()"), self.updateUi)
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.resetRequiredSmList)
         # The underlying is commented, this may come into use in future.
         #self.connect(self.button, QtCore.SIGNAL("clicked()"), self.getKey)
-        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.broadcast)
+        #updateUiStatus = self.updateUi()
+        #if updateUiStatus == True:
+        self.connect(self.button, QtCore.SIGNAL("clicked()"), self.verifyBroadcast)
+
 
         # clear the screen
         self.connect(self.clearButton, QtCore.SIGNAL("clicked()"), self.cleanBrowser)
@@ -77,10 +80,16 @@ class hwachaForm(QtGui.QDialog):
         # set window title
         self.setWindowTitle("Hwacha")
 
+    def verifyBroadcast(self):
+        updateUiStatus = self.updateUi()
+        if updateUiStatus == True:
+            broadcastStatus = self.broadcast()
+
 
     # Broadcast method
     def broadcast(self):
         """ Broadcast the input message in various social medias specified by the user"""
+        self.browser.append("<font color=green>Hwacha :/broadcast/$</font>")
         message = unicode(self.lineEdit.text())
         appObject = appControl.appController()
         try:
@@ -89,6 +98,7 @@ class hwachaForm(QtGui.QDialog):
         except:
             retValue = "Failed"
             self.browser.append("<font color=Red>Sending failed</font>")
+        return retValue
 
 
     def resetRequiredSmList(self):
@@ -113,7 +123,7 @@ class hwachaForm(QtGui.QDialog):
             smName = unicode(self.lineEdit2.text())
             if smName != self.defaultSmName and smName != self.emptySm:
                 if smName not in self.requiredSmList:
-                    self.browser.append("<b>%s,</b>" % (smName))
+                    self.browser.append("<b>%s selected.</b>" % (smName))
                 else:
                     self.browser.append("<font color=Red>Already selected</font>")
             else:
@@ -124,7 +134,6 @@ class hwachaForm(QtGui.QDialog):
 
     def updateUi(self):
         """ Update the browser screen based on the user input and report appropriate errors """
-        self.browser.append("<font color=yellow>=)Hwacha=)</font>")
         try:
             text = unicode(self.lineEdit.text())
             smName = unicode(self.lineEdit2.text())
@@ -137,18 +146,22 @@ class hwachaForm(QtGui.QDialog):
                     if retValue2 == self.defaultSmName or retValue2 == self.emptySm: 
                        # self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
                     #else:
+                        self.browser.append("<font color=green>Hwacha :/$</font>")
                         self.browser.append("<font color=red>Social Media not choosen</font>")
                         raise ValueError('Social Media not choosen')
                 else:
+                    self.browser.append("<font color=green>Hwacha :/$</font>")
                     self.browser.append("<font color=red>Message cannot be broadcasted</font>")
                     raise ValueError('Message cannot be broadcasted')
             else:
-                self.browser.append("<font color=red>Message cannot be readr</font>")
+                self.browser.append("<font color=green>Hwacha :/$</font>")
+                self.browser.append("<font color=red>Message cannot be read</font>")
                 raise ValueError('Message cannot be read')
         except:
-            self.browser.append("<font color=red>Error</font>")
-        self.browser.append("<font color=yellow>(=Hwacha(=</font>")
-
+            self.browser.append("<font color=blue>Try again!</font>")
+            return  False
+        #self.browser.append("<font color=yellow>(=Hwacha(=</font>")
+        return  True
 
 if __name__ == '__main__' :
     app = QtGui.QApplication(sys.argv)
