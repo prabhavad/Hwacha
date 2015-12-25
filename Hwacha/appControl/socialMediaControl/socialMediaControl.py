@@ -34,8 +34,6 @@ class socialMediaController(object): # concrete class
         try:
             for i in rmList:
                 smList.remove(i)
-
-
             default_file = './appControl/socialMediaControl/smName.txt'    
             if os.path.isfile(default_file):
                 with open(default_file,'w') as outfile:
@@ -78,16 +76,12 @@ class socialMediaController(object): # concrete class
            return []
 
     
-
-
-
     def countSm(self):
         """ countSm() returns the number of social medias inside social media controller"""
         return len(self.displaySm())
 
     def isSmAvailable(self,smedia):
         try:
- 
             if (smedia in self.displaySm()):
                 return True
             else:

@@ -99,6 +99,29 @@ def test_twitter_auth():
 
 
 
+def test_init_twitter():
+      key = {'consumer_key':'test',
+             'consumer_secret':'test','access_token':'test','access_token_secret':'test'}
+      mock_broadcast = mock.Mock()
+      mock_auth= mock.Mock()
+      mock_push = mock.Mock()
+      mock_auth_key = mock.Mock() 
+      mock_auth.return_value = mock_auth_key
+      mock_br = mock.Mock()
+      mock_broadcast.return_value = mock_br
+
+
+      original_TwitterBroadcast = broadcast.TwitterBroadcast
+      broadcast.TwitterBroadcast = mock_broadcast
+      original_auth = mock_br.authentication
+      mock_br.authentication = mock_auth
+      original_push = mock_br.push 
+      mock_br.push = mock_push
+
+      broadcast.init_twitter('testing',key)
+      broadcast.TwitterBroadcast.assert_called_with('test','test','test','test')
+      mock_br.authentication()
+      mock_br.push.assert_called_with(mock_auth_key,'testing')
 
 
 
