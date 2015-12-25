@@ -123,7 +123,7 @@ def test_init_twitter():
       mock_br.authentication()
       mock_br.push.assert_called_with(mock_auth_key,'testing')
 
-
+      
 
 
 # def test_broadcst2():
@@ -191,31 +191,46 @@ def test_authentication():
 
 
 
-# #def test_broadcastmessage():
-#       statusMessage = {}
-#       mock_mail_status = mock.Mock()
-#       mock_twitter_status = mock.Mock()
-#       mock_key = mock.Mock()
-#       statusMessage['mail'] = mock_mail_status
-#       statusMessage['twitter'] = mock_twitter_status
-#       mock_server = mock.Mock()
-#       mock_twitter = mock.Mock()
-#       mock_mail = mock.Mock()
-#       mock_gmail_key = mock.Mock()
-#       mock_server.return_value = mock_gmail_key
+def test_broadcast_message():
+      key ={
+'twitter':{'consumer_key' : 'test',
+           'consumer_secret':'test',
+           'access_token':'test',
+           'access_token_secret':'test'},
+'mail':{'subject':'Test Subject', 
+        'to':'test',
+        'consumer_key':'test', 
+        'consumer_secret':'test'}
+     }
 
-#       original_server = smtplib.SMTP
-#       smtplib.SMTP =  mock_server
-#       original_mail =  broadcast.init_mail
-#       init_mail = mock_mail
-#       original_twitter = broadcast.init_twitter
-#       init_twitter = mock_twitter
+
+      sm_list = ['mail','twitter']
+      mock_smtp = mock.Mock()
+      mock_server = mock.Mock()
+      mock_smtp.return_value = mock_server
+      mock_mail = mock.Mock()
+      mock_twitter = mock.Mock()
+
+      original_mail = broadcast.init_mail
+      broadcast.init_mail = mock_mail
       
-#       return_status = broadcast.broadcastmessage('test_message',['mail'],mock_key)
-#       smtplib.SMTP.assert_called_with('smtp.gmail.com',587)
-#       #init_mail.assert_called_with('test_message',mock_gmail_key,mock_key)
+      original_twitter = broadcast.init_twitter
+      broadcast.init_twitter = mock_twitter
+      
+      original_smtp = smtplib.SMTP
+      smtplib.SMTP = mock_smtp
       
 
+
+
+      broadcast.broadcastmessage('testing',sm_list,key)
+      smtplib.SMTP.assert_called_with('smtp.gmail.com',587)
+      broadcast.init_mail.assert_called_with('testing',mock_server,key['mail'])
+      broadcast.init_twitter.assert_called_with('testing',key['twitter'])
+
+      smtplib.SMTP = original_smtp
+      broadcast.init_mail = original_mail
+      broadcast.init_twitter = original_twitter
       
       
       
