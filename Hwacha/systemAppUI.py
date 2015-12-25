@@ -44,7 +44,7 @@ class hwachaForm(QtGui.QDialog):
         # self.lineEdit3.selectAll() // Not working
         self.addButton = QtGui.QPushButton(self.add)
         self.removeButton = QtGui.QPushButton(self.remove)
-        
+        self.lineEdit4 = QtGui.QLineEdit(self.emptySm)
 
         # -------- Add layout --------------------------
         layout = QtGui.QVBoxLayout()
@@ -61,6 +61,8 @@ class hwachaForm(QtGui.QDialog):
         layout.addWidget(self.lineEdit3)
         layout.addWidget(self.addButton)
         layout.addWidget(self.smComboBox2)
+        # lineEdit4 is purposefully removed from layout, if need to see uncomment
+        #layout.addWidget(self.lineEdit4)        
         layout.addWidget(self.removeButton)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
@@ -97,6 +99,11 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmBrowser)
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.updateSmList)
 
+        # To signal index change in comboBox2
+        self.connect(self.smComboBox2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit4,QtCore.SLOT("setText(QString)"))
+        self.connect(self.smComboBox2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.rmSm)
+
+
         # set window title
         self.setWindowTitle("Hwacha")
 
@@ -112,10 +119,17 @@ class hwachaForm(QtGui.QDialog):
                 addStatus = appObject.addSm(smName)
                 self.browser.append("<font color=blue><b>%s</b></font> successfully added to Social Media List" % (smName))
         except:
-           self.browser.append("<font color=red><b>%s cannot be added to Social Media List</b></font>" % (smName))
+           self.browser.append("<font color=red><b>%s</b> cannot be added to Social Media List</font>" % (smName))
 
     def rmSm(self):
-        pass
+        smName = unicode(self.lineEdit4.text())
+        appObject = appControl.appController()
+        self.browser.append("<font color=green>Hwacha :/socialMedia/$</font>")
+        try:
+            rmStatus = appObject.rmSm(smName)
+            self.browser.append("<font color=blue><b>%s</b></font> successfully removed from Social Media List" % (smName))
+        except:
+           self.browser.append("<font color=red><b>%s</b> cannot be removed from Social Media List</font>" % (smName))            
 
     def verifyBroadcast(self):
         updateUiStatus = self.updateUi()
