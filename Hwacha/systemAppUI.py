@@ -32,12 +32,16 @@ class hwachaForm(QtGui.QDialog):
         self.button = QtGui.QPushButton(self.send)
         self.smComboBox = QtGui.QComboBox()
         self.smComboBox.addItem(self.emptySm)
+        self.smComboBox2 = QtGui.QComboBox()
+        self.smComboBox2.addItem(self.emptySm)
         self.clearButton = QtGui.QPushButton(self.clear)
         #create app object
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
+        self.smComboBox2.addItems(appObject.getAvailableSmList())
         self.lineEdit2 = QtGui.QLineEdit(self.defaultSmName)
         self.lineEdit3 = QtGui.QLineEdit(self.displayAddSm)
+        # self.lineEdit3.selectAll() // Not working
         self.addButton = QtGui.QPushButton(self.add)
         self.removeButton = QtGui.QPushButton(self.remove)
         
@@ -56,7 +60,7 @@ class hwachaForm(QtGui.QDialog):
         layout.addWidget(self.clearButton)
         layout.addWidget(self.lineEdit3)
         layout.addWidget(self.addButton)
-        layout.addWidget(self.smComboBox)
+        layout.addWidget(self.smComboBox2)
         layout.addWidget(self.removeButton)
 
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
@@ -97,7 +101,18 @@ class hwachaForm(QtGui.QDialog):
         self.setWindowTitle("Hwacha")
 
     def addSm(self):
-        pass
+        smName = unicode(self.lineEdit3.text())
+        appObject = appControl.appController()
+        self.browser.append("<font color=green>Hwacha :/socialMedia/$</font>")
+        try: 
+            smList = appObject.getAvailableSmList()
+            if smName in smList:
+                self.browser.append("<font color=blue><b>%s</b></font> is already in Social Media List" % (smName))
+            else:
+                addStatus = appObject.addSm(smName)
+                self.browser.append("<font color=blue><b>%s</b></font> successfully added to Social Media List" % (smName))
+        except:
+           self.browser.append("<font color=red><b>%s cannot be added to Social Media List</b></font>" % (smName))
 
     def rmSm(self):
         pass
