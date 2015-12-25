@@ -90,9 +90,11 @@ class hwachaForm(QtGui.QDialog):
 
         # Add action to 'Add' button
         self.connect(self.addButton, QtCore.SIGNAL("clicked()"), self.addSm)
+        self.connect(self.addButton, QtCore.SIGNAL("clicked()"), self.updateComboBox)
          
         # Add action to 'Remove' button
         self.connect(self.removeButton, QtCore.SIGNAL("clicked()"), self.rmSm)
+        self.connect(self.removeButton, QtCore.SIGNAL("clicked()"), self.updateComboBox)
 
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
@@ -103,9 +105,15 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.smComboBox2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit4,QtCore.SLOT("setText(QString)"))
         self.connect(self.smComboBox2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.rmSm)
 
-
         # set window title
         self.setWindowTitle("Hwacha")
+
+    def updateComboBox(self):
+        appObject = appControl.appController()
+        self.smComboBox.addItems([])
+        self.smComboBox.addItems(appObject.getAvailableSmList())
+        self.smComboBox2.addItems([])
+        self.smComboBox2.addItems(appObject.getAvailableSmList())
 
     def addSm(self):
         smName = unicode(self.lineEdit3.text())
