@@ -16,10 +16,13 @@ class hwachaForm(QtGui.QDialog):
         self.defaultMessage = "Message"
         self.send = "Send"
         self.clear = "Clear screen"
+        self.add = "Add"
+        self.remove = "Remove"
         self.emptySm = "None"
         self.defaultSmName = "Choose Social Media Name"
         self.requiredSmList = []
         self.key = []
+        self.displayAddSm = "Add Social Media Name"
 
         # ----------- Add GUI elements --------------------
         self.browser = QtGui.QTextBrowser()
@@ -34,6 +37,9 @@ class hwachaForm(QtGui.QDialog):
         appObject = appControl.appController()
         self.smComboBox.addItems(appObject.getAvailableSmList())
         self.lineEdit2 = QtGui.QLineEdit(self.defaultSmName)
+        self.lineEdit3 = QtGui.QLineEdit(self.displayAddSm)
+        self.addButton = QtGui.QPushButton(self.add)
+        self.removeButton = QtGui.QPushButton(self.remove)
         
 
         # -------- Add layout --------------------------
@@ -48,6 +54,11 @@ class hwachaForm(QtGui.QDialog):
         #layout.addWidget(self.lineEdit2)
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
+        layout.addWidget(self.lineEdit3)
+        layout.addWidget(self.addButton)
+        layout.addWidget(self.smComboBox)
+        layout.addWidget(self.removeButton)
+
         # setLayout() is the layout manager, which gives ownership of the widgets and of itself to the form, and takes ownership of any nested layouts itself.
         self.setLayout(layout)
         # Set focus to the start of lineEdit
@@ -64,13 +75,18 @@ class hwachaForm(QtGui.QDialog):
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.resetRequiredSmList)
         # The underlying is commented, this may come into use in future.
         #self.connect(self.button, QtCore.SIGNAL("clicked()"), self.getKey)
-        #updateUiStatus = self.updateUi()
-        #if updateUiStatus == True:
+
         self.connect(self.button, QtCore.SIGNAL("clicked()"), self.verifyBroadcast)
 
 
         # clear the screen
         self.connect(self.clearButton, QtCore.SIGNAL("clicked()"), self.cleanBrowser)
+
+        # Add action to 'Add' button
+        self.connect(self.addButton, QtCore.SIGNAL("clicked()"), self.addSm)
+         
+        # Add action to 'Remove' button
+        self.connect(self.removeButton, QtCore.SIGNAL("clicked()"), self.rmSm)
 
         # To signal index change in comboBox
         self.connect(self.smComboBox, QtCore.SIGNAL("currentIndexChanged(QString)"), self.lineEdit2,QtCore.SLOT("setText(QString)"))
@@ -79,6 +95,12 @@ class hwachaForm(QtGui.QDialog):
 
         # set window title
         self.setWindowTitle("Hwacha")
+
+    def addSm(self):
+        pass
+
+    def rmSm(self):
+        pass
 
     def verifyBroadcast(self):
         updateUiStatus = self.updateUi()
