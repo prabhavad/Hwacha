@@ -132,6 +132,7 @@ class hwachaForm(QtGui.QDialog):
         try:
             rmStatus = appObject.removeSm([smName])
             # issue with removeItem
+            smName = int(smName)
             self.smComboBox.removeItem(smName)
             self.smComboBox2.removeItem(smName)
             self.browser.append("<font color=blue><b>%s</b></font> successfully removed from Social Media List" % (smName))
@@ -150,11 +151,13 @@ class hwachaForm(QtGui.QDialog):
         """ Broadcast the input message in various social medias specified by the user"""
         self.browser.append("<font color=green>Hwacha :/broadcast/$</font>")
         message = unicode(self.lineEdit.text())
+        smName = unicode(self.lineEdit2.text())
         appObject = appControl.appController()
         try:
             retValue = appObject.broadcastMessage(message,self.requiredSmList)
-            self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (text,smName))
-        except:
+            self.browser.append("<b>%s</b> broadcasted in <font color=blue><b>%s</b></font>" % (message,smName))
+        except Exception as a:
+            print a
             retValue = "Failed"
             self.browser.append("<font color=Red>Sending failed</font>")
         return retValue
