@@ -1,4 +1,4 @@
-
+import mock
 import pytest
 from .. import appControl
 from ..socialMediaControl import socialMediaControl
@@ -64,4 +64,17 @@ def test_getAvailableSmList():
     retValue = appObject.getAvailableSmList()
     assert retValue == smObject.displaySm()
 
+    
+
+def test_removeSm():
+    sm_object = mock.Mock()
+    sm_object.rmSm = mock.MagicMock(return_value = True)
+    
+    original = appControl.socialMediaControl.socialMediaController
+    appControl.socialMediaControl.socialMediaController = sm_object 
+    
+    app_object = appControl.appController()
+    value = app_object.removeSm(['twitter'])
+#    sm_object.rmSm.assert_called_with(['twitter'])
+    assert value == True
     
