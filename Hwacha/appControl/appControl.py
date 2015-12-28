@@ -60,9 +60,8 @@ class appController(object): # concrete class
          except:
             return "Failed"
 
-    def isInSmList(self,raw_input):
+    def isInSmList(self,smName):
         try:
-            smName = raw_input
             smObject = socialMediaControl.socialMediaController()
             boolValue = smObject.isSmAvailable(smName)
             if boolValue == True:
