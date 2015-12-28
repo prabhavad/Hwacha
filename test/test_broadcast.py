@@ -171,14 +171,16 @@ def test_mailBroadcast():
 
 def test_mailBroadcast_auth_failure():
     mock_server = Mock()
+    mock_server.login = Mock()
+    mock_server.login.side_effect = broadcast.AuthenticationError()
     mock_subject = Mock()
     mock_to = Mock()
     mock_sender = Mock()
     mock_pass = Mock()
     mailObject = broadcast.mailBroadcast(mock_subject, mock_to, mock_sender, mock_pass)
-    retAuthValue =mailObject.authentication(mock_server)
     #with pytest.raises(broadcast.AuthenticationError):
-     #   assert retAuthValue == "failure"
+    retAuthValue =mailObject.authentication(mock_server)
+    assert retAuthValue == "failure"
 	
     
 def test_authentication():
@@ -192,16 +194,17 @@ def test_authentication():
 
 
 def test_broadcast_message():
+     
       key ={
-'twitter':{'consumer_key' : 'test',
-           'consumer_secret':'test',
-           'access_token':'test',
-           'access_token_secret':'test'},
-'mail':{'subject':'Test Subject', 
-        'to':'test',
-        'consumer_key':'test', 
-        'consumer_secret':'test'}
-     }
+            'twitter':{'consumer_key' : 'test',
+                       'consumer_secret':'test',
+                       'access_token':'test',
+                       'access_token_secret':'test'},
+            'mail':{'subject':'Test Subject', 
+                    'to':'test',
+                    'consumer_key':'test', 
+                    'consumer_secret':'test'}
+      }
 
 
       sm_list = ['mail','twitter']
