@@ -103,11 +103,9 @@ class WordpressBroadcast(Broadcast): #concrete class for Wordpress
                 return "Failure"
                 
 
-        def push(self,BlogTitle, BlogContent):
+        def push(self,message):
             
             post = WordPressPost()
-            post.title = 'BlogTitle'
-            post.content = 'BlogContent'
             try:
                 Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
                 post.post_status = 'publish'
@@ -152,13 +150,13 @@ def init_mail(message,server,key): # mail initialisation
         except:
             return "Authentication failed"
         
-def init_wordpress(self, BlogTitle, BlogContent, key):
+def init_wordpress(self, message, key):
     Blog_id = key ['http://mysite.wordpress.com/xmlrpc.php']
     UserName = key['wpUserName']
     PassWord = key['wpPassWord']
     
     client = Client('Blog_id', 'UserName', 'PassWord')
-    Blog_status = client.push(BlogTitle, BlogContent)
+    Blog_status = client.push(message)
     return Blog_status
 
 def broadcastmessage(message,smList,key):
