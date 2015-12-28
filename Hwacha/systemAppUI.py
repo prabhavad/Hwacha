@@ -203,8 +203,8 @@ class hwachaForm(QtGui.QDialog):
             smName = unicode(self.lineEdit2.text())
 
             appObject = appControl.appController()
-            retValue = appObject.getMessage(lambda: text)
-            retValue2 = appObject.getSmName(lambda: smName)
+            retValue = appObject.getMessage(text)
+            retValue2 = appObject.getSmName(smName)
             if retValue == text: 
                 if retValue2 == smName:
                     if retValue2 == self.defaultSmName or retValue2 == self.emptySm: 
