@@ -65,7 +65,6 @@ def test_getAvailableSmList():
     assert retValue == smObject.displaySm()
 
     
-
 def test_removeSm():
     sm_object = mock.Mock()
     sm_object.rmSm = mock.MagicMock(return_value = True)
@@ -78,3 +77,4 @@ def test_removeSm():
 #    sm_object.rmSm.assert_called_with(['twitter'])
     assert value == True
     
+
