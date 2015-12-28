@@ -76,5 +76,5 @@ def test_removeSm():
     value = app_object.removeSm(['twitter'])
 #    sm_object.rmSm.assert_called_with(['twitter'])
     assert value == True
-    
+    appControl.socialMediaControl.socialMediaController = original
 
