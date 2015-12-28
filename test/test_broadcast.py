@@ -1,7 +1,7 @@
 
 # Test for broadcast
 
-from ..broadcast import broadcast #path set
+from ..Hwacha.appControl.broadcast import broadcast #path set
 import pytest
 import random
 import mock

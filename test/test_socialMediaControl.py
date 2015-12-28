@@ -1,6 +1,5 @@
-
 import pytest
-from ..socialMediaControl import socialMediaControl
+from ..Hwacha.appControl.socialMediaControl import socialMediaControl
 
 
 def test_SmControl():

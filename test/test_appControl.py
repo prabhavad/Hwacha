@@ -1,7 +1,7 @@
 import mock
 import pytest
-from .. import appControl
-from ..socialMediaControl import socialMediaControl
+from ..Hwacha.appControl import appControl
+from ..Hwacha.appControl.socialMediaControl import socialMediaControl
 
 def test_getSmName():
     appObject = appControl.appController()
