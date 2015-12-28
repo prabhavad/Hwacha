@@ -131,10 +131,12 @@ class hwachaForm(QtGui.QDialog):
         self.browser.append("<font color=green>Hwacha :/socialMedia/$</font>")
         try:
             rmStatus = appObject.removeSm([smName])
-            # issue with removeItem
-            smName = int(smName)
-            self.smComboBox.removeItem(smName)
-            self.smComboBox2.removeItem(smName)
+            self.smComboBox.clear()
+            self.smComboBox.addItem(self.emptySm)
+            self.smComboBox.addItems(appObject.getAvailableSmList())
+            self.smComboBox2.clear()
+            self.smComboBox2.addItem(self.emptySm)
+            self.smComboBox2.addItems(appObject.getAvailableSmList())
             self.browser.append("<font color=blue><b>%s</b></font> successfully removed from Social Media List" % (smName))
         except Exception as a:
             print a
