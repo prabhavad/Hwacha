@@ -11,10 +11,13 @@ class socialMediaController(object): # concrete class
     def addSm(self,addList):
         smList=self.displaySm()
         for i in addList:
-            smList.append(i)
+            if i not in smList:
+                smList.append(i)
         
+       
+
         try:
-            default_file = './appControl/socialMediaControl/smName.txt'
+            default_file = './Hwacha/appControl/socialMediaControl/smName.txt'
             if os.path.isfile(default_file):
                 with open(default_file,'w') as outfile:
                         json.dump(smList,outfile)
@@ -60,10 +63,10 @@ class socialMediaController(object): # concrete class
 
     def displaySm(self):
 
-        default_file = './appControl/socialMediaControl/smName.txt'
+        default_file = './Hwacha/appControl/socialMediaControl/smName.txt'
         try:
             if os.path.isfile(default_file):
-                with open('./appControl/socialMediaControl/smName.txt')as infile:
+                with open('./Hwacha/appControl/socialMediaControl/smName.txt')as infile:
                    return json.load(infile)
             else:
                 with open('smName.txt')as infile:
