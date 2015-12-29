@@ -17,7 +17,7 @@ class socialMediaController(object): # concrete class
        
 
         try:
-            default_file = './Hwacha/appControl/socialMediaControl/smName.txt'
+            default_file = './appControl/socialMediaControl/smName.txt'
             if os.path.isfile(default_file):
                 with open(default_file,'w') as outfile:
                         json.dump(smList,outfile)
@@ -63,10 +63,10 @@ class socialMediaController(object): # concrete class
 
     def displaySm(self):
 
-        default_file = './Hwacha/appControl/socialMediaControl/smName.txt'
+        default_file = './appControl/socialMediaControl/smName.txt'
         try:
             if os.path.isfile(default_file):
-                with open('./Hwacha/appControl/socialMediaControl/smName.txt')as infile:
+                with open('./appControl/socialMediaControl/smName.txt')as infile:
                    return json.load(infile)
             else:
                 with open('smName.txt')as infile:
