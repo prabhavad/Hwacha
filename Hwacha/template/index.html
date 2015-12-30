@@ -1,10 +1,7 @@
-<html>
-<h1> Hwacha </h1>
+$def with(sm_list,all_list)
 
 
-<body>
-
-
+<h1>Hwacha</h1>
 
 
 
@@ -15,18 +12,51 @@
      Your message:<br>
     <textarea name="message" rows="7" cols="30">
     </textarea><br>
-    
-    <input type="Checkbox" value="all" name="sm_all"> all 
-    <input type="Checkbox" value="mail" name="sm_mail"> mail 
-    <input type="Checkbox" value="twitter" name="sm_twitter"> twitter 
-    <input type="Checkbox" value="wordpress" name="sm_wordpress"> wordpress <br> 
 
-	<input value="Broadcast" type="submit">
+$if len(sm_list)>1:
+    <input type="Checkbox" value="all" name="sm_all"> all
+
+
+$for i in sm_list:
+    
+    <input type="Checkbox" value=$i name=$i> $i
+    
+
+
+<br>
+<input value="Broadcast" type="submit">
 	
 
-   </form>
-
-</body>
+</form>
 
 
-</html>
+<h2> available list</h2>
+
+$for i in sm_list:
+   <table>
+      <tr>
+         <td> $i</td>
+         <td> 
+            <form action="/del/$i" method="post">
+              <input type="submit" value="Delete" name=$i/>
+            </form>
+         </td>
+      </tr>
+   </table>
+
+$for i in all_list:
+  
+   
+   $if i not in sm_list:
+      <table>
+         <tr>
+            <td> $i</td>
+            <td>
+                <form action="/add/$i" method="post">
+                   <input type="submit" value="Add" name=$i/>
+                </form>
+            </td>
+         </tr>
+      </table>
+
+

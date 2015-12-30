@@ -1,36 +1,63 @@
 import web
+from web import form
 from appControl import appControl
 
-urls = ('/index','index',
+urls = ('/','Index',
+        '/del/(\w+)' ,'Delete',
+        '/add/(\w+)','Add'
+
         )
 
 app = web.application(urls,globals())
 render = web.template.render('template/')
 
 
-class index(object):
+class Index(object):
     
-    sm_list = []
+
+
     def GET(self):
-        return render.index()
+        appObject = appControl.appController()
+        sm_list = appObject. getAvailableSmList()
+        all_list = ['twitter','mail','wordpress']
+        return render.index(sm_list,all_list)
+
 
     def POST(self):
         appObject = appControl.appController()
         sm_list = []
         form = web.input(subject="Hwacha Message",message="None",sm_all=None,
-                sm_twitter = None, sm_mail=None,sm_wordpress=None )
+                twitter=None, mail=None,wordpress=None )
         
+        print form.mail,form.twitter,form.wordpress
+
         if form.sm_all:
-            sm_list = ['twitter','mail']
+            sm_list = appObject. getAvailableSmList()
         else:
-            for i in form.sm_mail,form.sm_twitter,form.sm_wordpress:
+            for i in form.mail,form.twitter,form.wordpress:
                 if i :
                     sm_list.append(i)
-
         status = appObject.broadcastMessage(form.message,sm_list)
-                
+        raise web.seeother('/')
+
+class Delete(object):
+    def POST(self,smName):
+        smList=[]
+        smList.append(smName)
+        appObject = appControl.appController()
+        appObject.removeSm(smList)
+        raise web.seeother('/')
 
 
+        
+class Add(object):
+    def POST(self,smName):
+        smList=[]
+        smList.append(smName)
+        appObject = appControl.appController()
+        appObject.addSm(smList)
+        raise web.seeother('/')
+      
 
 if __name__ == "__main__":
     app.run()
