@@ -50,7 +50,7 @@ class socialMediaController(object): # concrete class
             raise SocialMediaError()
        
 
-    def dropSm(self,rmList):
+    def dropSm(self):
         data=[]
         try:
             with open('smName.txt','w') as outfile:
