@@ -26,6 +26,7 @@ def display():
 
 
 def addSocialMedia(addList):
+    appObject=appControl.appController()
     currentList=appObject.getAvailableSmList()
     inputList=addList[:]
     
@@ -49,6 +50,7 @@ def addSocialMedia(addList):
 
 
 def removeSocialMedia(rmList):    
+    appObject=appControl.appController()
     currentList = appObject.getAvailableSmList()
     inputList = rmList[:]
     for i in rmList:
@@ -68,6 +70,8 @@ def removeSocialMedia(rmList):
 
 
 def BroadcastMessage(message,smList):
+        appObject=appControl.appController()
+
         if not smList:
             sys.exit("Exiting. Please select social media using '-b' option")
         else:
