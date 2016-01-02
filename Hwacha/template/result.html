@@ -1,0 +1,24 @@
+$def with(status)
+
+   <h1>Hwacha</h1>
+
+   $if 'twitter' in status:
+      $if status['twitter']==None:
+         <h3>Twitter Successful </h3>
+      $else:
+         <h3> Sorry, Twitter Failed </h3>
+
+   $if 'mail' in status:
+
+      $if status['mail'] == 'success':
+         <h3>mail Successful </h3>
+
+      $else:
+         <h3> Sorry, 'mail' Failed </h3>
+
+
+<form action="/result" method="post">
+<input type="submit" value="Try Again" name="result"/>
+
+
+

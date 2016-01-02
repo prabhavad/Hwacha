@@ -4,7 +4,8 @@ from appControl import appControl
 
 urls = ('/','Index',
         '/del/(\w+)' ,'Delete',
-        '/add/(\w+)','Add'
+        '/add/(\w+)','Add',
+        '/result','Result',
 
         )
 
@@ -38,7 +39,10 @@ class Index(object):
                 if i :
                     sm_list.append(i)
         status = appObject.broadcastMessage(form.message,sm_list)
-        raise web.seeother('/')
+        print status
+        return render.result(status)
+
+
 
 class Delete(object):
     def POST(self,smName):
@@ -58,6 +62,11 @@ class Add(object):
         appObject.addSm(smList)
         raise web.seeother('/')
       
+class Result(object):
+    def POST(self):
+        raise web.seeother('/')
+    
+
 
 if __name__ == "__main__":
     app.run()
