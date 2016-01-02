@@ -61,7 +61,7 @@ def test_removeSocialMedia():
     appObject.removeSm = org_rm
 
 
-def test_removeSocialMedia():
+def test_addSocialMedia():
     
     mock_list = mock.Mock()
     mock_add = mock.Mock()
@@ -71,16 +71,17 @@ def test_removeSocialMedia():
 
     org_get = appObject.getAvailableSmList
     appObject.getAvailableSmList = mock_list
-    org_rm = appObject.removeSm
+    org_add = appObject.addSm
     appObject.addSm = mock_add
-    return_value= ui.removeSocialMedia(['mail'])
+    return_value= ui.addSocialMedia(['mail'])
 
     assert appObject.addSm.called_with(['mail'])
     assert return_value == None
 
-    return_value= ui.removeSocialMedia(['twitter'])
+    return_value= ui.addSocialMedia(['twitter'])
     assert appObject.addSm.called_with([])
     assert return_value == None
     
     appObject.getAvailableSmList = org_get
-    appObject.addSm = org_rm
+    appObject.addSm = org_add
+
