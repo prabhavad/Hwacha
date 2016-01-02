@@ -18,6 +18,7 @@ def test_broadcastMessage():
     return_value = ui.BroadcastMessage('testing',['mail'])
     assert return_value == None
 
+    appObject.getAvailableSmList = org_function
 
 
 
@@ -33,3 +34,28 @@ def test_broadcastMessage_exiting():
     sys.exit = originalsys
 
 
+
+
+def test_removeSocialMedia():
+    
+    mock_list = mock.Mock()
+    mock_rm = mock.Mock()
+    availableList = ['twitter']
+    mock_list.return_value = availableList
+    appObject=appControl.appController()
+
+    org_get = appObject.getAvailableSmList
+    appObject.getAvailableSmList = mock_list
+    org_rm = appObject.removeSm
+    appObject.removeSm = mock_rm
+    return_value= ui.removeSocialMedia(['mail'])
+
+    assert appObject.removeSm.called_with(['mail'])
+    assert return_value == None
+
+    return_value= ui.removeSocialMedia(['twitter'])
+    assert appObject.removeSm.called_with([])
+    assert return_value == None
+    
+    appObject.getAvailableSmList = org_get
+    appObject.removeSm = org_rm
