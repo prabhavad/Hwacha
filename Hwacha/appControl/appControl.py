@@ -5,55 +5,7 @@ from socialMediaControl import key_file
 
 class appController(object): # concrete class
 
-    def getSmName(self,smName):
-        try:
-            return smName
-        except:
-            return "Failed"
-
-    def getSmUserName(self,smUserName):
-        try:
-            return smUserName
-        except:
-            return "Failed"
-
-    def getSmUserPasswd(self,smPwd):
-         try:
-            return smPwd
-         except:
-            return "Failed"
-
-    def getMessage(self,smMsg):
-        try:
-            return smMsg
-        except:
-            return "Failed"
-
-
-    def getAddList(self, smName):
-        addList = []
-        try:
-           addList.append(smName)
-           return addList
-        except:
-            return "Failed"
-
-    def getRmList(self, smName):
-       
-        rmList = []
-        
-        try:
-            rmList.append(smName)
-            return rmList
-        except:
-            return "Failed"
-            
-
-    def getSmList(self, smList):
-         try:
-            return smList
-         except:
-            return "Failed"
+    
 
     def isInSmList(self,smName):
         try:
