@@ -1,8 +1,5 @@
 import tweepy
 import smtplib
-from wordpress_xmlrpc import WordPressPost, Client
-from wordpress_xmlrpc.methods import posts
-import xmlrpclib
 
 class BroadcastError(Exception):
     pass
@@ -86,35 +83,6 @@ class mailBroadcast(Broadcast): # mail concrete class
                 print exptn
                 return "Error: unable to send email"
 
-class WordpressBroadcast(Broadcast): #concrete class for Wordpress
-    
-        def __init__(self,blog_id, wpUserName,wpPassWord):
-            self.blog_id = blog_id
-            self.wpUserName = wpUserName
-            self.PassWord = wpPassWord
-    
-            
-        def authentication(self): # authentication for the wordpress
-            try:
-                auth = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
-                return "success"
-            
-            except AuthenticationError as excptn:
-                return "Failure"
-                
-
-        def push(self,message):
-            
-            post = WordPressPost()
-            try:
-                Client = Client('self.blog_id', 'self.wpUserName', 'self.wpPassWord')
-                post.post_status = 'publish'
-                post_id = client.call(posts.NewPost(post))
-                print 'Post Successfully posted. Id is: ', post_id
-            except Exception as exptn:
-                print exptn
-                return "Error : unable to publish the blog"
-
 def init_twitter(message,key): # twitter key initialisation and broadcasting
     
     consumer_key = key['consumer_key']
@@ -150,14 +118,6 @@ def init_mail(message,server,key): # mail initialisation
         except:
             return "Authentication failed"
         
-def init_wordpress(self, message, key):
-    Blog_id = key ['http://mysite.wordpress.com/xmlrpc.php']
-    UserName = key['wpUserName']
-    PassWord = key['wpPassWord']
-    
-    client = Client('Blog_id', 'UserName', 'PassWord')
-    Blog_status = client.push(message)
-    return Blog_status
 
 def broadcastmessage(message,smList,key):
     statusMessage={}
@@ -171,9 +131,6 @@ def broadcastmessage(message,smList,key):
             status = init_twitter(message,key[sm])
             statusMessage[sm] = status
             
-        elif sm == 'Wordpress':
-            status = init_wordpress(BlogTitle, BlogContent, key[sm])
-            statusMessage[sm] = status
     
     return statusMessage
 
