@@ -3,12 +3,6 @@ import pytest
 from ..Hwacha.appControl import appControl
 from ..Hwacha.appControl.socialMediaControl import socialMediaControl
 
-    
-def test_getSmList():
-    Object= appControl.appController()
-    retValue=Object.getSmList("Twitter Facebook Gmail Tumblr")
-    assert retValue == "Twitter Facebook Gmail Tumblr"
-
 def test_isInSmList():
     appObject = appControl.appController()
     smObject = socialMediaControl.socialMediaController()
@@ -20,8 +14,12 @@ def test_isInSmList2():
     appObject = appControl.appController()
     smObject = socialMediaControl.socialMediaController()
     retAdd = smObject.addSm(['twitter','facebook'])
-    retValue = appObject.isInSmList('mail')
+    retValue = appObject.isInSmList(['wrong'])
     assert retValue == False
+
+
+
+
 
 def test_addSm():
     appObject = appControl.appController()
