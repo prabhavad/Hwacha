@@ -78,3 +78,22 @@ def test_rmSm_1(monkeypatch):
     
     monkeypatch.undo()
 
+
+
+
+def test_displaySm(monkeypatch):
+    mock_open = mock.Mock()
+    mock_json = mock.Mock()
+    mock_file = mock.Mock()
+    mock_open.return_value = mock_file
+    default_file = './appControl/socialMediaControl/smName.txt'
+    smObject = socialMediaControl.socialMediaController()
+    monkeypatch.setattr(__builtin__,'open',mock_open)
+    monkeypatch.setattr(json,'load',mock_json)
+    retValue = smObject.displaySm()
+    
+    mock_open.assert_called_with(default_file) 
+    mock_json.assert_called_with(mock_file)
+
+    monkeypatch.undo()
+
