@@ -111,3 +111,27 @@ def test_countSm(monkeypatch):
 
 
 
+def test_isavailable(monkeypatch):
+    mock_display = mock.Mock()
+    mock_display.return_value = ['facebook','google']
+    
+    smObject = socialMediaControl.socialMediaController()
+    monkeypatch.setattr(smObject,'displaySm',mock_display)
+    
+    retValue = smObject.isSmAvailable('facebook')
+    assert retValue == True
+    monkeypatch.undo()
+
+
+def test_isavailable(monkeypatch):
+    mock_display = mock.Mock()
+    mock_display.return_value = ['facebook','google']
+    
+    smObject = socialMediaControl.socialMediaController()
+    monkeypatch.setattr(smObject,'displaySm',mock_display)
+    
+    retValue = smObject.isSmAvailable('No value')
+    assert retValue == False
+    monkeypatch.undo()
+
+
