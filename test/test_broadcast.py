@@ -12,10 +12,15 @@ import smtplib
 def test_twitter_broadcast():
       mock_update_status = mock.Mock()
       mock_authenticate = mock.Mock()
+      mock_oauth = mock.Mock()
+      
+
       api = mock.Mock()
       mock_authenticate.return_value = api
       original_update = api.update_status
       api.update_status = mock_update_status
+
+
 
       t = broadcast.TwitterBroadcast("test_consumer_key", 
                 "test_consumer_secret", 
@@ -26,6 +31,7 @@ def test_twitter_broadcast():
       api.update_status.assert_called_with(status='testing')
       
       api.update_status = api.update_status
+
 
 
 def test_twitter_init():

@@ -13,7 +13,7 @@ def test_SmControl():
     
     
 
-def test_addSm_2(monkeypatch):
+def test_addSm_1(monkeypatch):
     mock_json = mock.Mock()
     mock_open = mock.Mock()
     default_file = './appControl/socialMediaControl/smName.txt'
@@ -36,7 +36,7 @@ def test_addSm_2(monkeypatch):
     monkeypatch.undo()
 
 
-def test_addSm_2(monkeypatch):
+def test_addSm_fail(monkeypatch):
     mock_json = mock.Mock()
     mock_open = mock.Mock()
     default_file = './appControl/socialMediaControl/smName.txt'
@@ -56,43 +56,25 @@ def test_addSm_2(monkeypatch):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-# def test_rmSm():
-#     smObject = socialMediaControl.socialMediaController()
-#     retValue = smObject.addSm(['facebook'])
-#     retValue = smObject.rmSm(['facebook'])
-#     assert retValue == True
-#     smObject.dropSm()
-    
-
-# def test_rmSm2():
-#     smObject = socialMediaControl.socialMediaController()
-#     with pytest.raises(socialMediaControl.SocialMediaError):
-#         retValue = smObject.rmSm('NotInSmListName')
+def test_rmSm_1(monkeypatch):
+    mock_json = mock.Mock()
+    mock_open = mock.Mock()
+    default_file = './appControl/socialMediaControl/smName.txt'
+    mock_display = mock.Mock()
+    mock_display.return_value = ['facebook']
+    smObject = socialMediaControl.socialMediaController()
+    mock_file = mock.Mock()
+    mock_open.return_value = mock_file
    
-
-# def test_isSmAvailable():    
-#     smObject = socialMediaControl.socialMediaController()
-#     retAdd = smObject.addSm(['twitter','facebook'])
-#     retValue = smObject.isSmAvailable('twitter')
-#     assert retValue == True
-#     smObject.dropSm()
-
-
-# def test_isSmAvailable2():    
-#     smObject = socialMediaControl.socialMediaController()
-#     retValue = smObject.isSmAvailable('NotInSmlistName')
-#     assert retValue == False
-#     smObject.dropSm()
-
+    monkeypatch.setattr(smObject,'displaySm',mock_display) 
+    monkeypatch.setattr(__builtin__,'open',mock_open)
+    monkeypatch.setattr(json,'dump',mock_json)
+    
+    assert smObject.displaySm() == ['facebook']
+    retValue = smObject.rmSm(['facebook'])
+    
+    mock_open.assert_called_with(default_file,'w')
+    mock_json.assert_called_with([],mock_file)
+    
+    monkeypatch.undo()
 

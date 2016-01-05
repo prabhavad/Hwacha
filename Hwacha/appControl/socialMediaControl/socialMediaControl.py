@@ -26,43 +26,22 @@ class socialMediaController(object): # concrete class
         smList=self.displaySm()
         try:
             for i in rmList:
-                smList.remove(i)
+                if i in smList:
+                    smList.remove(i)
             default_file = './appControl/socialMediaControl/smName.txt'    
-            if os.path.isfile(default_file):
-                with open(default_file,'w') as outfile:
-                        json.dump(smList,outfile)
-                        
-            else:
-                with open('smName.txt','w') as outfile:
-                        json.dump(smList,outfile)
-                        
-
+            
+            outfile = open(default_file,'w')
+            json.dump(smList,outfile)
         except: 
             raise SocialMediaError()
        
-
-    def dropSm(self):
-        data=[]
-        try:
-            with open('smName.txt','w') as outfile:
-                json.dump(data,outfile)
-            return True 
-        except:
-            raise SocialMediaError()
-
-
 
     def displaySm(self):
 
         default_file = './appControl/socialMediaControl/smName.txt'
         try:
-            if os.path.isfile(default_file):
-                with open('./appControl/socialMediaControl/smName.txt')as infile:
-                   return json.load(infile)
-            else:
-                with open('smName.txt')as infile:
-                   return json.load(infile)
-
+            infile = open(default_file)
+            return json.load(infile)
         except:
            return []
 
