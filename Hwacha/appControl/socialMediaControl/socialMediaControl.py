@@ -9,26 +9,17 @@ class SocialMediaError(Exception):
 class socialMediaController(object): # concrete class
    
     def addSm(self,addList):
-        smList=self.displaySm()
-        for i in addList:
-            if i not in smList:
-                smList.append(i)
-        
-       
+        try:    
+            smList=self.displaySm()
+            for i in addList:
+                if i not in smList:
+                    smList.append(i)
 
-        try:
             default_file = './appControl/socialMediaControl/smName.txt'
-            if os.path.isfile(default_file):
-                with open(default_file,'w') as outfile:
-                        json.dump(smList,outfile)
-                        return True
-            else:
-                with open('smName.txt','w') as outfile:
-                        json.dump(smList,outfile)
-                        return True
-
+            outfile =  open(default_file,'w')
+            json.dump(smList,outfile)
         except: 
-            raise SocialMediaError()
+             raise SocialMediaError()
 
     
     def rmSm(self,rmList):
@@ -40,11 +31,11 @@ class socialMediaController(object): # concrete class
             if os.path.isfile(default_file):
                 with open(default_file,'w') as outfile:
                         json.dump(smList,outfile)
-                        return True
+                        
             else:
                 with open('smName.txt','w') as outfile:
                         json.dump(smList,outfile)
-                        return True
+                        
 
         except: 
             raise SocialMediaError()
