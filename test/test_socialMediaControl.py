@@ -97,3 +97,17 @@ def test_displaySm(monkeypatch):
 
     monkeypatch.undo()
 
+
+def test_countSm(monkeypatch):
+    mock_display = mock.Mock()
+    mock_display.return_value = ['facebook','google']
+    
+    smObject = socialMediaControl.socialMediaController()
+    monkeypatch.setattr(smObject,'displaySm',mock_display)
+    
+    retValue = smObject.countSm()
+    assert retValue == 2
+    monkeypatch.undo()
+
+
+
