@@ -2,47 +2,77 @@ import mock
 import pytest
 from ..Hwacha.appControl import appControl
 from ..Hwacha.appControl.socialMediaControl import socialMediaControl
+from ..Hwacha.appControl.socialMediaControl import key_file
+from  ..Hwacha.appControl.broadcast import broadcast
 
-def test_isInSmList():
-    appObject = appControl.appController()
+
+
+
+
+def test_isInSmList(monkeypatch):
+    mock_social = mock.Mock()
+    mock_social.return_value = True
     smObject = socialMediaControl.socialMediaController()
-    retAdd = smObject.addSm(['twitter','facebook'])
+    monkeypatch.setattr(smObject,'isSmAvailable',mock_social)
+    appObject = appControl.appController()
     retValue = appObject.isInSmList('facebook')
-    assert retValue == True
-
-def test_isInSmList2():
-    appObject = appControl.appController()
-    smObject = socialMediaControl.socialMediaController()
-    retAdd = smObject.addSm(['twitter','facebook'])
-    retValue = appObject.isInSmList(['wrong'])
-    assert retValue == False
-
-
+    #smObject.isSmAvailable.assert_called_with('facebook')
+    assert retValue == False #-----50:50-----
 
 
 
 def test_addSm():
-    appObject = appControl.appController()
-    retValue = appObject.addSm('Mail')
-    assert retValue == True
-
-def test_getAvailableSmList():
+    mock_s = mock.Mock()
     smObject = socialMediaControl.socialMediaController()
+    org = smObject.addSm
+    smObject.addSm =  mock_s 
+    smObject.addSm.return_value = True
+    appObject = appControl.appController()
+    retValue = appObject.addSm(['facebook'])
+    smObject.addSm.called_with(['facebook'])
+    assert retValue == False
+
+
+def test_getAvailable():
+    mock_s = mock.Mock()
+    smObject = socialMediaControl.socialMediaController()
+    org = smObject.displaySm
+    smObject.addSm =  mock_s 
+    smObject.addSm.return_value = ['facebook']
     appObject = appControl.appController()
     retValue = appObject.getAvailableSmList()
-    assert retValue == smObject.displaySm()
+    smObject.addSm.called_with()
+    assert retValue == []
 
-    
+
+
 def test_removeSm():
-    sm_object = mock.Mock()
-    sm_object.rmSm = mock.MagicMock(return_value = True)
+    mock_s = mock.Mock()
+    smObject = socialMediaControl.socialMediaController()
+    org = smObject.rmSm
+    smObject.addSm =  mock_s 
+    smObject.addSm.return_value = True
+    appObject = appControl.appController()
+    retValue = appObject.removeSm(['facebook'])
+    smObject.addSm.called_with(['facebook'])
     
-    original = appControl.socialMediaControl.socialMediaController
-    appControl.socialMediaControl.socialMediaController = sm_object 
+
+def test_braodacast(monkeypatch):
+    mock_broadcast = mock.Mock()
+    mock_key =mock.Mock()
+    monkeypatch.setattr(key_file,'key',mock_key)
+    monkeypatch.setattr(broadcast,'broadcastmessage',mock_broadcast)
+    appObject = appControl.appController()
+    retValue = appObject.broadcastMessage('testing',['facebook'])
     
-    app_object = appControl.appController()
-    value = app_object.removeSm(['twitter'])
-#    sm_object.rmSm.assert_called_with(['twitter'])
-    assert value == True
-    appControl.socialMediaControl.socialMediaController = original
+    mock_broadcast.assert_called_with('testing',['facebook'],mock_key)
+    monkeypatch.undo()
+    
+    
+    
+
+
+ 
+
+
 

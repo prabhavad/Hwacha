@@ -8,14 +8,11 @@ class appController(object): # concrete class
     
 
     def isInSmList(self,smName):
-        try:
-            smObject = socialMediaControl.socialMediaController()
-            boolValue = smObject.isSmAvailable(smName)
-            if boolValue == True:
-                return True
-            else:
-                return False
-        except Exception as excpt:
+        smObject = socialMediaControl.socialMediaController()
+        boolValue = smObject.isSmAvailable(smName)
+        if boolValue == True:
+            return True
+        else:
             return False
 
     def getAvailableSmList(self):
