@@ -20,7 +20,7 @@ class Index(object):
     def GET(self):
         appObject = appControl.appController()
         sm_list = appObject. getAvailableSmList()
-        all_list = ['twitter','mail','wordpress']
+        all_list = ['twitter','mail']
         return render.index(sm_list,all_list)
 
 
@@ -28,14 +28,14 @@ class Index(object):
         appObject = appControl.appController()
         sm_list = []
         form = web.input(subject="Hwacha Message",message="None",sm_all=None,
-                twitter=None, mail=None,wordpress=None )
+                twitter=None, mail=None )
         
         print form.mail,form.twitter,form.wordpress
 
         if form.sm_all:
             sm_list = appObject. getAvailableSmList()
         else:
-            for i in form.mail,form.twitter,form.wordpress:
+            for i in form.mail,form.twitter:
                 if i :
                     sm_list.append(i)
         status = appObject.broadcastMessage(form.message,sm_list)

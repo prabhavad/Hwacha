@@ -16,7 +16,6 @@ def display():
         parse.add_argument('-r','--remove',action='append',dest='rmList',
                            help = 'Remove social media from Hwacha')
         
-        
         if len(sys.argv) == 1:
            sys.exit(1)
     except:
@@ -36,9 +35,9 @@ def addSocialMedia(addList):
             inputList.remove(i)
     
     if inputList:
-        if appObject.addSm(inputList):
-            print '\n'
-            for i in inputList:
+        appObject.addSm(inputList)
+        print '\n'
+        for i in inputList:
                 print "Adding '%s' to Social Media list" %(i)
 
 

@@ -16,6 +16,7 @@ class socialMediaController(object): # concrete class
                     smList.append(i)
 
             default_file = './appControl/socialMediaControl/smName.txt'
+           
             outfile =  open(default_file,'w')
             json.dump(smList,outfile)
         except: 
@@ -28,8 +29,9 @@ class socialMediaController(object): # concrete class
             for i in rmList:
                 if i in smList:
                     smList.remove(i)
-            default_file = './appControl/socialMediaControl/smName.txt'    
             
+            default_file = './appControl/socialMediaControl/smName.txt'    
+#            default_file = 'smName.txt'        
             outfile = open(default_file,'w')
             json.dump(smList,outfile)
         except: 
@@ -39,6 +41,7 @@ class socialMediaController(object): # concrete class
     def displaySm(self):
 
         default_file = './appControl/socialMediaControl/smName.txt'
+        #default_file = 'smName.txt'        
         try:
             infile = open(default_file)
             return json.load(infile)
@@ -58,5 +61,4 @@ class socialMediaController(object): # concrete class
                 return False
         except:
             raise SocialMediaError()
-
 
