@@ -9,9 +9,9 @@ class AuthenticationError(Exception):
 
 class Broadcast(object): #Abstract class 
     
-    def authentication():
+    def authentication(self,server):
         raise NotImplementedError()
-    def push():
+    def push(self,message,server):
         raise NotImplementedError()
     
 
@@ -27,15 +27,15 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
             self.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET
             
             
-        def authentication(self):
+        def authentication(self,server=None):
             auth = tweepy.OAuthHandler(self.CONSUMER_KEY,self.CONSUMER_SECRET)
             auth.set_access_token(self.ACCESS_TOKEN,self.ACCESS_TOKEN_SECRET)
             api = tweepy.API(auth)
             return api
 
-        def push(self,api,message):
+        def push(self,message,server):
            try:
-               api.update_status(status=message)
+               server.update_status(status=message)
            except tweepy.TweepError as e:
         #       raise BroadcastError(e[0][0]['message'],e[0][0]['code'])
                raise BroadcastError()               
@@ -92,7 +92,7 @@ def init_twitter(message,key): # twitter key initialisation and broadcasting
 
     twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
     key=twitter.authentication()
-    status=twitter.push(key,message)
+    status=twitter.push(message,key)
     return status
 
 

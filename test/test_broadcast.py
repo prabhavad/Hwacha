@@ -27,7 +27,7 @@ def test_twitter_broadcast():
                 "test_access_token",
                 "test_access_token_secret")
 
-      ret = t.push(api,'testing')
+      ret = t.push('testing',api)
       api.update_status.assert_called_with(status='testing')
       
       api.update_status = api.update_status
@@ -107,7 +107,7 @@ def test_init_twitter():
       broadcast.init_twitter('testing',key)
       broadcast.TwitterBroadcast.assert_called_with('test','test','test','test')
       mock_br.authentication()
-      mock_br.push.assert_called_with(mock_auth_key,'testing')
+      mock_br.push.assert_called_with('testing',mock_auth_key)
 
       
 
