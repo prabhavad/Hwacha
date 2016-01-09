@@ -86,8 +86,8 @@ def test_twitter_auth():
 
 
 def test_init_twitter():
-      key = {'consumer_key':'test',
-             'consumer_secret':'test','access_token':'test','access_token_secret':'test'}
+      key = {'consumerKey':'test',
+             'consumerSecret':'test','accessToken':'test','accessTokenSecret':'test'}
       mock_broadcast = mock.Mock()
       mock_auth= mock.Mock()
       mock_push = mock.Mock()
@@ -154,14 +154,14 @@ def test_authentication():
 def test_broadcast_message():
      
       key ={
-            'twitter':{'consumer_key' : 'test',
-                       'consumer_secret':'test',
-                       'access_token':'test',
-                       'access_token_secret':'test'},
+            'twitter':{'consumerKey' : 'test',
+                       'consumerSecret':'test',
+                       'accessToken':'test',
+                       'accessTokenSecret':'test'},
             'mail':{'subject':'Test Subject', 
                     'to':'test',
-                    'consumer_key':'test', 
-                    'consumer_secret':'test'}
+                    'consumerKey':'test', 
+                    'consumerSecret':'test'}
       }
 
 
