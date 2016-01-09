@@ -17,19 +17,19 @@ class Broadcast(object): #Abstract class
 
 class TwitterBroadcast(Broadcast): #concrete class for twitter
     
-        def __init__(self,CONSUMER_KEY,CONSUMER_SECRET,
-                          ACCESS_TOKEN,ACCESS_TOKEN_SECRET):
+        def __init__(self,consumerKey,consumerSecret,
+                          accessToken,accessTokenSecret):
             
 
-            self.CONSUMER_KEY = CONSUMER_KEY
-            self.CONSUMER_SECRET = CONSUMER_SECRET
-            self.ACCESS_TOKEN = ACCESS_TOKEN
-            self.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET
+            self.consumerKey = consumerKey
+            self.consumerSecret = consumerSecret
+            self.accessToken = accessToken
+            self.accessTokenSecret = accessTokenSecret
             
             
         def authentication(self,server=None):
-            auth = tweepy.OAuthHandler(self.CONSUMER_KEY,self.CONSUMER_SECRET)
-            auth.set_access_token(self.ACCESS_TOKEN,self.ACCESS_TOKEN_SECRET)
+            auth = tweepy.OAuthHandler(self.consumerKey,self.consumerSecret)
+            auth.set_accessToken(self.accessToken,self.accessTokenSecret)
             api = tweepy.API(auth)
             return api
 
@@ -45,11 +45,11 @@ class TwitterBroadcast(Broadcast): #concrete class for twitter
 
 class mailBroadcast(Broadcast): # mail concrete class
 
-    def __init__(self,SUBJECT,TO,CONSUMER_KEY,CONSUMER_SECRET) :
-        self.SUBJECT = SUBJECT
-        self.TO = TO
-        self.gmailSender = CONSUMER_KEY
-        self.gmailPass = CONSUMER_SECRET
+    def __init__(self,subject,to,consumerKey,consumerSecret) :
+        self.subject = subject
+        self.to = to
+        self.gmailSender = consumerKey
+        self.gmailPass = consumerSecret
 
     def authentication(self,server):# authentication for the mail
         
@@ -64,18 +64,18 @@ class mailBroadcast(Broadcast): # mail concrete class
 
     def push(self,message,server) :
 
-        TO = self.TO
+        to = self.to
 
         BODY = '\r\n'.join([
-               'To: %s' % self.TO,
+               'To: %s' % self.to,
                'From: %s' % self.gmailSender,
-               'Subject: %s' % self.SUBJECT,
+               'subject: %s' % self.subject,
                '%s' % message
                ])
 	
         #Sending the message
         try:
-                server.sendmail(self.gmailSender,[TO],BODY)
+                server.sendmail(self.gmailSender,[to],BODY)
                 server.quit()
                 return "success"
 	except Exception as exptn:
@@ -85,12 +85,12 @@ class mailBroadcast(Broadcast): # mail concrete class
 
 def init_twitter(message,key): # twitter key initialisation and broadcasting
     
-    consumer_key = key['consumer_key']
-    consumer_secret = key['consumer_secret']
-    access_token = key['access_token']
-    access_token_secret = key['access_token_secret']
+    consumerKey = key['consumerKey']
+    consumerSecret = key['consumerSecret']
+    accessToken = key['accessToken']
+    accessTokenSecret = key['accessTokenSecret']
 
-    twitter=TwitterBroadcast(consumer_key,consumer_secret,access_token,access_token_secret)
+    twitter=TwitterBroadcast(consumerKey,consumerSecret,accessToken,accessTokenSecret)
     key=twitter.authentication()
     status=twitter.push(message,key)
     return status
@@ -101,8 +101,8 @@ def init_mail(message,server,key): # mail initialisation
 	toAddress = key['to']
 	subject = key['subject']
         # Consumer key is the mail id of the sender and Consumer secret is the passphrase for it.
-	consumerKey = key['consumer_key']
-	consumerSecret = key['consumer_secret']
+	consumerKey = key['consumerKey']
+	consumerSecret = key['consumerSecret']
         
 	mail = mailBroadcast(subject,toAddress,consumerKey,consumerSecret)
 
