@@ -14,3 +14,4 @@ python setup.py install
 ### How to execute Hwacha
 python ui.py --help
 
+Please feel free to contribute to this project.
